@@ -17,7 +17,7 @@ For Powershell/Linux-based systems use: ```./gradlew run```
 
 #### Changes
 03/12/2021:
-	* Extracted related classes into separate packages.
-		* Extracted "Ball" and "RubberBall" into package "ball"
-		* Extracted "Brick", "CementBrick", "ClayBrick", and "SteelBrick" into package "brick"
-		* Extracted "DebugConsole" and "DebugPanel" into package "debug"
+* Extracted related classes into separate packages.
+  * Extracted "Ball" and "RubberBall" into package "ball"
+  * Extracted "Brick", "CementBrick", "ClayBrick", and "SteelBrick" into package "brick"
+  * Extracted "DebugConsole" and "DebugPanel" into package "debug"
