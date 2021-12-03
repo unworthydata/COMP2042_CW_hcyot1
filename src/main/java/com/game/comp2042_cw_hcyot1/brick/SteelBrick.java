@@ -15,7 +15,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.game.comp2042_cw_hcyot1;
+package com.game.comp2042_cw_hcyot1.brick;
 
 import java.awt.*;
 import java.awt.geom.Point2D;

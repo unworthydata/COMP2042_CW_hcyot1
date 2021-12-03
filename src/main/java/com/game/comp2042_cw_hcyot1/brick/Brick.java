@@ -1,4 +1,6 @@
-package com.game.comp2042_cw_hcyot1;
+package com.game.comp2042_cw_hcyot1.brick;
+
+import com.game.comp2042_cw_hcyot1.ball.Ball;
 
 import java.awt.*;
 import java.awt.Point;
@@ -11,16 +13,13 @@ import java.util.Random;
  */
 abstract public class Brick {
 
-    public static final int MIN_CRACK = 1;
     public static final int DEF_CRACK_DEPTH = 1;
     public static final int DEF_STEPS = 35;
-
 
     public static final int UP_IMPACT = 100;
     public static final int DOWN_IMPACT = 200;
     public static final int LEFT_IMPACT = 300;
     public static final int RIGHT_IMPACT = 400;
-
 
     public class Crack {
 
@@ -48,7 +47,6 @@ abstract public class Brick {
             this.steps = steps;
 
         }
-
 
         public GeneralPath draw() {
 
@@ -206,7 +204,6 @@ abstract public class Brick {
 
     public abstract Shape getBrick();
 
-
     public Color getBorderColor() {
         return border;
     }
@@ -215,18 +212,17 @@ abstract public class Brick {
         return inner;
     }
 
-
     public final int findImpact(Ball b) {
         if (broken)
             return 0;
         int out = 0;
-        if (brickFace.contains(b.right))
+        if (brickFace.contains(b.getRight()))
             out = LEFT_IMPACT;
-        else if (brickFace.contains(b.left))
+        else if (brickFace.contains(b.getLeft()))
             out = RIGHT_IMPACT;
-        else if (brickFace.contains(b.up))
+        else if (brickFace.contains(b.getUp()))
             out = DOWN_IMPACT;
-        else if (brickFace.contains(b.down))
+        else if (brickFace.contains(b.getDown()))
             out = UP_IMPACT;
         return out;
     }

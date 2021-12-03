@@ -1,4 +1,4 @@
-package com.game.comp2042_cw_hcyot1;
+package com.game.comp2042_cw_hcyot1.ball;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
@@ -6,6 +6,8 @@ import java.awt.geom.RectangularShape;
 
 /**
  * Created by filippo on 04/09/16.
+ *
+ * Fixed by Omar starting on 03/12/2021. Filippo's code is bad.
  */
 abstract public class Ball {
 
@@ -13,10 +15,10 @@ abstract public class Ball {
 
     private Point2D center;
 
-    Point2D up;
-    Point2D down;
-    Point2D left;
-    Point2D right;
+    private Point2D up;
+    private Point2D down;
+    private Point2D left;
+    private Point2D right;
 
     private Color border;
     private Color inner;
@@ -59,19 +61,6 @@ abstract public class Ball {
 
 
         ballFace = tmp;
-    }
-
-    public void setSpeed(int x, int y) {
-        speedX = x;
-        speedY = y;
-    }
-
-    public void setXSpeed(int s) {
-        speedX = s;
-    }
-
-    public void setYSpeed(int s) {
-        speedY = s;
     }
 
     public void reverseX() {
@@ -117,13 +106,40 @@ abstract public class Ball {
         right.setLocation(center.getX() + (width / 2), center.getY());
     }
 
+    public Point2D getUp() {
+        return up;
+    }
+
+    public Point2D getDown() {
+        return down;
+    }
+
+    public Point2D getLeft() {
+        return left;
+    }
+
+    public Point2D getRight() {
+        return right;
+    }
+
+    public void setSpeed(int x, int y) {
+        setSpeedX(x);
+        setSpeedY(y);
+    }
+
     public int getSpeedX() {
         return speedX;
+    }
+
+    public void setSpeedX(int s) {
+        speedX = s;
     }
 
     public int getSpeedY() {
         return speedY;
     }
 
-
+    public void setSpeedY(int s) {
+        speedY = s;
+    }
 }

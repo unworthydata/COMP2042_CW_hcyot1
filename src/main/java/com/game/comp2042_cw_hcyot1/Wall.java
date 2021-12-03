@@ -17,6 +17,13 @@
  */
 package com.game.comp2042_cw_hcyot1;
 
+import com.game.comp2042_cw_hcyot1.ball.Ball;
+import com.game.comp2042_cw_hcyot1.ball.RubberBall;
+import com.game.comp2042_cw_hcyot1.brick.Brick;
+import com.game.comp2042_cw_hcyot1.brick.CementBrick;
+import com.game.comp2042_cw_hcyot1.brick.ClayBrick;
+import com.game.comp2042_cw_hcyot1.brick.SteelBrick;
+
 import java.awt.*;
 import java.awt.geom.Point2D;
 import java.util.Random;
@@ -33,9 +40,9 @@ public class Wall {
     private Random rnd;
     private Rectangle area;
 
-    Brick[] bricks;
-    Ball ball;
-    Player player;
+    private Brick[] bricks;
+    private Ball ball;
+    private Player player;
 
     private Brick[][] levels;
     private int level;
@@ -202,18 +209,18 @@ public class Wall {
                 //Vertical Impact
                 case Brick.UP_IMPACT:
                     ball.reverseY();
-                    return b.setImpact(ball.down, Brick.Crack.UP);
+                    return b.setImpact(ball.getDown(), Brick.Crack.UP);
                 case Brick.DOWN_IMPACT:
                     ball.reverseY();
-                    return b.setImpact(ball.up, Brick.Crack.DOWN);
+                    return b.setImpact(ball.getUp(), Brick.Crack.DOWN);
 
                 //Horizontal Impact
                 case Brick.LEFT_IMPACT:
                     ball.reverseX();
-                    return b.setImpact(ball.right, Brick.Crack.RIGHT);
+                    return b.setImpact(ball.getRight(), Brick.Crack.RIGHT);
                 case Brick.RIGHT_IMPACT:
                     ball.reverseX();
-                    return b.setImpact(ball.left, Brick.Crack.LEFT);
+                    return b.setImpact(ball.getLeft(), Brick.Crack.LEFT);
             }
         }
         return false;
@@ -276,11 +283,11 @@ public class Wall {
     }
 
     public void setBallXSpeed(int s) {
-        ball.setXSpeed(s);
+        ball.setSpeedX(s);
     }
 
     public void setBallYSpeed(int s) {
-        ball.setYSpeed(s);
+        ball.setSpeedY(s);
     }
 
     public void resetBallCount() {
@@ -305,4 +312,15 @@ public class Wall {
         return out;
     }
 
+    public Brick[] getBricks() {
+        return bricks;
+    }
+
+    public Ball getBall() {
+        return ball;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
 }

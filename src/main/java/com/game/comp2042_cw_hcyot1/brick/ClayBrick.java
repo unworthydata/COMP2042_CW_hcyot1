@@ -1,8 +1,7 @@
-package com.game.comp2042_cw_hcyot1;
+package com.game.comp2042_cw_hcyot1.brick;
 
 import java.awt.*;
 import java.awt.Point;
-import java.awt.geom.Point2D;
 
 
 /**

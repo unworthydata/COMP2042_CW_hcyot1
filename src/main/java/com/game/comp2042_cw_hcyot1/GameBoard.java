@@ -17,6 +17,10 @@
  */
 package com.game.comp2042_cw_hcyot1;
 
+import com.game.comp2042_cw_hcyot1.ball.Ball;
+import com.game.comp2042_cw_hcyot1.brick.Brick;
+import com.game.comp2042_cw_hcyot1.debug.DebugConsole;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -58,17 +62,15 @@ public class GameBoard extends JComponent implements KeyListener, MouseListener,
 
     public GameBoard(JFrame owner) {
         super();
-
         strLen = 0;
         showPauseMenu = false;
 
-
         menuFont = new Font("Monospaced", Font.PLAIN, TEXT_SIZE);
-
 
         this.initialize();
         message = "";
-        wall = new Wall(new Rectangle(0, 0, DEF_WIDTH, DEF_HEIGHT), 30, 3, 6 / 2, new Point(300, 430));
+        wall = new Wall(new Rectangle(0, 0, DEF_WIDTH, DEF_HEIGHT), 30,
+                3, 6 / 2, new Point(300, 430));
 
         debugConsole = new DebugConsole(owner, wall, this);
         //initialize the first level
@@ -103,7 +105,6 @@ public class GameBoard extends JComponent implements KeyListener, MouseListener,
 
     }
 
-
     private void initialize() {
         this.setPreferredSize(new Dimension(DEF_WIDTH, DEF_HEIGHT));
         this.setFocusable(true);
@@ -113,9 +114,7 @@ public class GameBoard extends JComponent implements KeyListener, MouseListener,
         this.addMouseMotionListener(this);
     }
 
-
     public void paint(Graphics g) {
-
         Graphics2D g2d = (Graphics2D) g;
 
         clear(g2d);
@@ -123,13 +122,13 @@ public class GameBoard extends JComponent implements KeyListener, MouseListener,
         g2d.setColor(Color.BLUE);
         g2d.drawString(message, 250, 225);
 
-        drawBall(wall.ball, g2d);
+        drawBall(wall.getBall(), g2d);
 
-        for (Brick b : wall.bricks)
+        for (Brick b : wall.getBricks())
             if (!b.isBroken())
                 drawBrick(b, g2d);
 
-        drawPlayer(wall.player, g2d);
+        drawPlayer(wall.getPlayer(), g2d);
 
         if (showPauseMenu)
             drawMenu(g2d);
@@ -265,10 +264,10 @@ public class GameBoard extends JComponent implements KeyListener, MouseListener,
     public void keyPressed(KeyEvent keyEvent) {
         switch (keyEvent.getKeyCode()) {
             case KeyEvent.VK_A:
-                wall.player.moveLeft();
+                wall.getPlayer().moveLeft();
                 break;
             case KeyEvent.VK_D:
-                wall.player.movRight();
+                wall.getPlayer().movRight();
                 break;
             case KeyEvent.VK_ESCAPE:
                 showPauseMenu = !showPauseMenu;
@@ -286,13 +285,13 @@ public class GameBoard extends JComponent implements KeyListener, MouseListener,
                 if (keyEvent.isAltDown() && keyEvent.isShiftDown())
                     debugConsole.setVisible(true);
             default:
-                wall.player.stop();
+                wall.getPlayer().stop();
         }
     }
 
     @Override
     public void keyReleased(KeyEvent keyEvent) {
-        wall.player.stop();
+        wall.getPlayer().stop();
     }
 
     @Override
