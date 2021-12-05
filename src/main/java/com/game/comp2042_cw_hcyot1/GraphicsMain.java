@@ -19,7 +19,6 @@ package com.game.comp2042_cw_hcyot1;
 
 import java.awt.*;
 
-
 public class GraphicsMain {
 
     public static void main(String[] args) {

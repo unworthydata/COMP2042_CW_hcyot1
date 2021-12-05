@@ -22,7 +22,6 @@ abstract public class Brick {
     public static final int RIGHT_IMPACT = 400;
 
     public class Crack {
-
         private static final int CRACK_SECTIONS = 3;
         private static final double JUMP_PROBABILITY = 0.7;
 
@@ -173,27 +172,23 @@ abstract public class Brick {
     private String name;
     Shape brickFace;
 
-    private Color border;
-    private Color inner;
+    private Color borderColor;
+    private Color innerColor;
 
     private int fullStrength;
     private int strength;
 
     private boolean broken;
 
-
-    public Brick(String name, Point pos, Dimension size, Color border, Color inner, int strength) {
+    public Brick(String name, Point pos, Dimension size, Color borderColor, Color innerColor, int strength) {
         rnd = new Random();
         broken = false;
         this.name = name;
         brickFace = makeBrickFace(pos, size);
-        this.border = border;
-        this.inner = inner;
+        this.borderColor = borderColor;
+        this.innerColor = innerColor;
         this.fullStrength = this.strength = strength;
-
     }
-
-    protected abstract Shape makeBrickFace(Point pos, Dimension size);
 
     public boolean setImpact(Point2D point, int dir) {
         if (broken)
@@ -205,11 +200,11 @@ abstract public class Brick {
     public abstract Shape getBrick();
 
     public Color getBorderColor() {
-        return border;
+        return borderColor;
     }
 
     public Color getInnerColor() {
-        return inner;
+        return innerColor;
     }
 
     public final int findImpact(Ball b) {
@@ -241,7 +236,7 @@ abstract public class Brick {
         broken = (strength == 0);
     }
 
-
+    protected abstract Shape makeBrickFace(Point pos, Dimension size);
 }
 
 

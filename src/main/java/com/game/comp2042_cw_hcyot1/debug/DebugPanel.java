@@ -18,6 +18,7 @@
 package com.game.comp2042_cw_hcyot1.debug;
 
 import com.game.comp2042_cw_hcyot1.Wall;
+import com.game.comp2042_cw_hcyot1.brick.CementBrick;
 
 import javax.swing.*;
 import javax.swing.event.ChangeListener;
@@ -35,7 +36,6 @@ public class DebugPanel extends JPanel {
 
     private JSlider ballXSpeed;
     private JSlider ballYSpeed;
-
     private Wall wall;
 
     public DebugPanel(Wall wall) {

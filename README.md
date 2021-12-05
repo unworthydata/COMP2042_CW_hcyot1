@@ -21,3 +21,7 @@ For Powershell/Linux-based systems use: ```./gradlew run```
   * Extracted "Ball" and "RubberBall" into package "ball"
   * Extracted "Brick", "CementBrick", "ClayBrick", and "SteelBrick" into package "brick"
   * Extracted "DebugConsole" and "DebugPanel" into package "debug"
+
+05/12/2021:
+* Fixed all access modifiers. Set all fields to private, added getters and setters accordingly, and made all helper methods only used internally within a class private.
+* Ordered all methods and variables in the order public -> protected -> private
