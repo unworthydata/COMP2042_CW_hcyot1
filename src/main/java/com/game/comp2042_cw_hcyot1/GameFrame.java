@@ -71,14 +71,6 @@ public class GameFrame extends JFrame implements WindowFocusListener {
 
     }
 
-    private void autoLocate() {
-        Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
-        int x = (size.width - this.getWidth()) / 2;
-        int y = (size.height - this.getHeight()) / 2;
-        this.setLocation(x, y);
-    }
-
-
     @Override
     public void windowGainedFocus(WindowEvent windowEvent) {
         /*
@@ -97,5 +89,12 @@ public class GameFrame extends JFrame implements WindowFocusListener {
         if (gaming)
             gameBoard.onLostFocus();
 
+    }
+
+    private void autoLocate() {
+        Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
+        int x = (size.width - this.getWidth()) / 2;
+        int y = (size.height - this.getHeight()) / 2;
+        this.setLocation(x, y);
     }
 }

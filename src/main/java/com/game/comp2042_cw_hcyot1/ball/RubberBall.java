@@ -17,6 +17,8 @@
  */
 package com.game.comp2042_cw_hcyot1.ball;
 
+import javafx.scene.shape.Circle;
+
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
@@ -28,14 +30,14 @@ public class RubberBall extends Ball {
     private static final Color DEF_BORDER_COLOR = DEF_INNER_COLOR.darker().darker();
 
     public RubberBall(Point2D center) {
-        super(center, DEF_RADIUS, DEF_RADIUS, DEF_INNER_COLOR, DEF_BORDER_COLOR);
+        super(center, DEF_RADIUS, DEF_INNER_COLOR, DEF_BORDER_COLOR);
     }
 
     @Override
-    protected Shape makeBall(Point2D center, int radiusA, int radiusB) {
-        double x = center.getX() - (radiusA / 2);
-        double y = center.getY() - (radiusB / 2);
+    protected Shape makeBall(Point2D center, int radius) {
+        double x = center.getX() - (radius / 2);
+        double y = center.getY() - (radius / 2);
 
-        return new Ellipse2D.Double(x, y, radiusA, radiusB);
+        return new Ellipse2D.Double(x, y, radius, radius);
     }
 }

@@ -21,6 +21,8 @@ abstract public class Brick {
     public static final int LEFT_IMPACT = 300;
     public static final int RIGHT_IMPACT = 400;
 
+    private static Random rnd = new Random();
+
     public class Crack {
         private static final int CRACK_SECTIONS = 3;
         private static final double JUMP_PROBABILITY = 0.7;
@@ -32,12 +34,10 @@ abstract public class Brick {
         public static final int VERTICAL = 100;
         public static final int HORIZONTAL = 200;
 
-
         private GeneralPath crack;
 
         private int crackDepth;
         private int steps;
-
 
         public Crack(int crackDepth, int steps) {
 
@@ -164,12 +164,8 @@ abstract public class Brick {
             }
             return out;
         }
-
     }
 
-    private static Random rnd;
-
-    private String name;
     Shape brickFace;
 
     private Color borderColor;
@@ -178,26 +174,25 @@ abstract public class Brick {
     private int fullStrength;
     private int strength;
 
-    private boolean broken;
+    private boolean broken = false;
 
-    public Brick(String name, Point pos, Dimension size, Color borderColor, Color innerColor, int strength) {
-        rnd = new Random();
-        broken = false;
-        this.name = name;
+    public Brick(Point pos, Dimension size, Color borderColor, Color innerColor, int strength) {
         brickFace = makeBrickFace(pos, size);
         this.borderColor = borderColor;
         this.innerColor = innerColor;
         this.fullStrength = this.strength = strength;
     }
 
-    public boolean setImpact(Point2D point, int dir) {
+    public boolean setImpact(Point2D point, int direction) {
         if (broken)
             return false;
         impact();
         return broken;
     }
 
-    public abstract Shape getBrick();
+    public Shape getBrick() {
+        return brickFace;
+    }
 
     public Color getBorderColor() {
         return borderColor;
@@ -207,19 +202,20 @@ abstract public class Brick {
         return innerColor;
     }
 
-    public final int findImpact(Ball b) {
+    public final int findImpact(Ball ball) {
         if (broken)
             return 0;
-        int out = 0;
-        if (brickFace.contains(b.getRight()))
-            out = LEFT_IMPACT;
-        else if (brickFace.contains(b.getLeft()))
-            out = RIGHT_IMPACT;
-        else if (brickFace.contains(b.getUp()))
-            out = DOWN_IMPACT;
-        else if (brickFace.contains(b.getDown()))
-            out = UP_IMPACT;
-        return out;
+
+        if (brickFace.contains(ball.getRight()))
+            return LEFT_IMPACT;
+        else if (brickFace.contains(ball.getLeft()))
+            return RIGHT_IMPACT;
+        else if (brickFace.contains(ball.getUp()))
+            return DOWN_IMPACT;
+        else if (brickFace.contains(ball.getDown()))
+            return UP_IMPACT;
+        else
+            return 0;
     }
 
     public final boolean isBroken() {
@@ -236,7 +232,9 @@ abstract public class Brick {
         broken = (strength == 0);
     }
 
-    protected abstract Shape makeBrickFace(Point pos, Dimension size);
+    private Shape makeBrickFace(Point pos, Dimension size) {
+        return new Rectangle(pos, size);
+    }
 }
 
 

@@ -36,7 +36,6 @@ public class GameBoard extends JComponent implements KeyListener, MouseListener,
     private static final int TEXT_SIZE = 30;
     private static final Color MENU_COLOR = new Color(0, 255, 0);
 
-
     private static final int DEF_WIDTH = 600;
     private static final int DEF_HEIGHT = 450;
 
@@ -58,7 +57,6 @@ public class GameBoard extends JComponent implements KeyListener, MouseListener,
     private int strLen;
 
     private DebugConsole debugConsole;
-
 
     public GameBoard(JFrame owner) {
         super();
@@ -105,15 +103,6 @@ public class GameBoard extends JComponent implements KeyListener, MouseListener,
 
     }
 
-    private void initialize() {
-        this.setPreferredSize(new Dimension(DEF_WIDTH, DEF_HEIGHT));
-        this.setFocusable(true);
-        this.requestFocusInWindow();
-        this.addKeyListener(this);
-        this.addMouseListener(this);
-        this.addMouseMotionListener(this);
-    }
-
     public void paint(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
 
@@ -134,6 +123,117 @@ public class GameBoard extends JComponent implements KeyListener, MouseListener,
             drawMenu(g2d);
 
         Toolkit.getDefaultToolkit().sync();
+    }
+
+    @Override
+    public void keyTyped(KeyEvent keyEvent) {
+    }
+
+    @Override
+    public void keyPressed(KeyEvent keyEvent) {
+        switch (keyEvent.getKeyCode()) {
+            case KeyEvent.VK_A:
+                wall.getPlayer().moveLeft();
+                break;
+            case KeyEvent.VK_D:
+                wall.getPlayer().movRight();
+                break;
+            case KeyEvent.VK_ESCAPE:
+                showPauseMenu = !showPauseMenu;
+                repaint();
+                gameTimer.stop();
+                break;
+            case KeyEvent.VK_SPACE:
+                if (!showPauseMenu)
+                    if (gameTimer.isRunning())
+                        gameTimer.stop();
+                    else
+                        gameTimer.start();
+                break;
+            case KeyEvent.VK_F1:
+                if (keyEvent.isAltDown() && keyEvent.isShiftDown())
+                    debugConsole.setVisible(true);
+            default:
+                wall.getPlayer().stop();
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent keyEvent) {
+        wall.getPlayer().stop();
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent mouseEvent) {
+        Point p = mouseEvent.getPoint();
+        if (!showPauseMenu)
+            return;
+        if (continueButtonRect.contains(p)) {
+            showPauseMenu = false;
+            repaint();
+        } else if (restartButtonRect.contains(p)) {
+            message = "Restarting Game...";
+            wall.ballReset();
+            wall.wallReset();
+            showPauseMenu = false;
+            repaint();
+        } else if (exitButtonRect.contains(p)) {
+            System.exit(0);
+        }
+
+    }
+
+    @Override
+    public void mousePressed(MouseEvent mouseEvent) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent mouseEvent) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent mouseEvent) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent mouseEvent) {
+
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent mouseEvent) {
+
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent mouseEvent) {
+        Point p = mouseEvent.getPoint();
+        if (exitButtonRect != null && showPauseMenu) {
+            if (exitButtonRect.contains(p) || continueButtonRect.contains(p) || restartButtonRect.contains(p))
+                this.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+            else
+                this.setCursor(Cursor.getDefaultCursor());
+        } else {
+            this.setCursor(Cursor.getDefaultCursor());
+        }
+    }
+
+    private void initialize() {
+        this.setPreferredSize(new Dimension(DEF_WIDTH, DEF_HEIGHT));
+        this.setFocusable(true);
+        this.requestFocusInWindow();
+        this.addKeyListener(this);
+        this.addMouseListener(this);
+        this.addMouseMotionListener(this);
+    }
+
+    public void onLostFocus() {
+        gameTimer.stop();
+        message = "Focus Lost";
+        repaint();
     }
 
     private void clear(Graphics2D g2d) {
@@ -255,107 +355,4 @@ public class GameBoard extends JComponent implements KeyListener, MouseListener,
         g2d.setFont(tmpFont);
         g2d.setColor(tmpColor);
     }
-
-    @Override
-    public void keyTyped(KeyEvent keyEvent) {
-    }
-
-    @Override
-    public void keyPressed(KeyEvent keyEvent) {
-        switch (keyEvent.getKeyCode()) {
-            case KeyEvent.VK_A:
-                wall.getPlayer().moveLeft();
-                break;
-            case KeyEvent.VK_D:
-                wall.getPlayer().movRight();
-                break;
-            case KeyEvent.VK_ESCAPE:
-                showPauseMenu = !showPauseMenu;
-                repaint();
-                gameTimer.stop();
-                break;
-            case KeyEvent.VK_SPACE:
-                if (!showPauseMenu)
-                    if (gameTimer.isRunning())
-                        gameTimer.stop();
-                    else
-                        gameTimer.start();
-                break;
-            case KeyEvent.VK_F1:
-                if (keyEvent.isAltDown() && keyEvent.isShiftDown())
-                    debugConsole.setVisible(true);
-            default:
-                wall.getPlayer().stop();
-        }
-    }
-
-    @Override
-    public void keyReleased(KeyEvent keyEvent) {
-        wall.getPlayer().stop();
-    }
-
-    @Override
-    public void mouseClicked(MouseEvent mouseEvent) {
-        Point p = mouseEvent.getPoint();
-        if (!showPauseMenu)
-            return;
-        if (continueButtonRect.contains(p)) {
-            showPauseMenu = false;
-            repaint();
-        } else if (restartButtonRect.contains(p)) {
-            message = "Restarting Game...";
-            wall.ballReset();
-            wall.wallReset();
-            showPauseMenu = false;
-            repaint();
-        } else if (exitButtonRect.contains(p)) {
-            System.exit(0);
-        }
-
-    }
-
-    @Override
-    public void mousePressed(MouseEvent mouseEvent) {
-
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent mouseEvent) {
-
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent mouseEvent) {
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent mouseEvent) {
-
-    }
-
-    @Override
-    public void mouseDragged(MouseEvent mouseEvent) {
-
-    }
-
-    @Override
-    public void mouseMoved(MouseEvent mouseEvent) {
-        Point p = mouseEvent.getPoint();
-        if (exitButtonRect != null && showPauseMenu) {
-            if (exitButtonRect.contains(p) || continueButtonRect.contains(p) || restartButtonRect.contains(p))
-                this.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-            else
-                this.setCursor(Cursor.getDefaultCursor());
-        } else {
-            this.setCursor(Cursor.getDefaultCursor());
-        }
-    }
-
-    public void onLostFocus() {
-        gameTimer.stop();
-        message = "Focus Lost";
-        repaint();
-    }
-
 }

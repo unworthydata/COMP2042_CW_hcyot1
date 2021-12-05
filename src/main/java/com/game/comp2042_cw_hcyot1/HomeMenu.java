@@ -47,7 +47,6 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
     private Rectangle startButton;
     private Rectangle menuButton;
 
-
     private BasicStroke borderStoke;
     private BasicStroke borderStoke_noDashes;
 
@@ -60,7 +59,6 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
 
     private boolean startClicked;
     private boolean menuClicked;
-
 
     public HomeMenu(GameFrame owner, Dimension area) {
 
@@ -91,11 +89,9 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
 
     }
 
-
     public void paint(Graphics g) {
         drawMenu((Graphics2D) g);
     }
-
 
     public void drawMenu(Graphics2D g2d) {
 
@@ -285,7 +281,6 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
     public void mouseExited(MouseEvent mouseEvent) {
 
     }
-
 
     @Override
     public void mouseDragged(MouseEvent mouseEvent) {

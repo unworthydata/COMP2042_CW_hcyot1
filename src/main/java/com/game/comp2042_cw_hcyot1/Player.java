@@ -23,8 +23,6 @@ import java.awt.*;
 
 
 public class Player {
-
-
     public static final Color BORDER_COLOR = Color.GREEN.darker().darker();
     public static final Color INNER_COLOR = Color.GREEN;
 
@@ -36,7 +34,6 @@ public class Player {
     private int min;
     private int max;
 
-
     public Player(Point ballPoint, int width, int height, Rectangle container) {
         this.ballPoint = ballPoint;
         moveAmount = 0;
@@ -44,11 +41,6 @@ public class Player {
         min = container.x + (width / 2);
         max = min + container.width - width;
 
-    }
-
-    private Rectangle makeRectangle(int width, int height) {
-        Point p = new Point((int) (ballPoint.getX() - (width / 2)), (int) ballPoint.getY());
-        return new Rectangle(p, new Dimension(width, height));
     }
 
     public boolean impact(Ball b) {
@@ -82,5 +74,10 @@ public class Player {
     public void moveTo(Point p) {
         ballPoint.setLocation(p);
         playerFace.setLocation(ballPoint.x - (int) playerFace.getWidth() / 2, ballPoint.y);
+    }
+
+    private Rectangle makeRectangle(int width, int height) {
+        Point p = new Point((int) (ballPoint.getX() - (width / 2)), (int) ballPoint.getY());
+        return new Rectangle(p, new Dimension(width, height));
     }
 }

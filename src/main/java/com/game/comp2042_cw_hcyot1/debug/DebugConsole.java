@@ -30,12 +30,10 @@ public class DebugConsole extends JDialog implements WindowListener {
 
     private static final String TITLE = "Debug Console";
 
-
     private JFrame owner;
     private DebugPanel debugPanel;
     private GameBoard gameBoard;
     private Wall wall;
-
 
     public DebugConsole(JFrame owner, Wall wall, GameBoard gameBoard) {
 
@@ -60,13 +58,11 @@ public class DebugConsole extends JDialog implements WindowListener {
         this.setFocusable(true);
     }
 
-
     private void setLocation() {
         int x = ((owner.getWidth() - this.getWidth()) / 2) + owner.getX();
         int y = ((owner.getHeight() - this.getHeight()) / 2) + owner.getY();
         this.setLocation(x, y);
     }
-
 
     @Override
     public void windowOpened(WindowEvent windowEvent) {

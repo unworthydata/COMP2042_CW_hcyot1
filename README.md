@@ -23,5 +23,8 @@ For Powershell/Linux-based systems use: ```./gradlew run```
   * Extracted "DebugConsole" and "DebugPanel" into package "debug"
 
 05/12/2021:
-* Fixed all access modifiers. Set all fields to private, added getters and setters accordingly, and made all helper methods only used internally within a class private.
+* Fixed all access modifiers. Set all fields to private, added getters and setters accordingly, and set to private all those helper methods only used internally
 * Ordered all methods and variables in the order public -> protected -> private
+* Removed unused variable "name" in class Brick constructor and all related unused variables
+* Pushed up the repeated method "makeBrickFace()" in Brick subclasses
+* Replaced radiusA and radiusB in constructor of class "Ball" (a circle cannot have two different radii)
