@@ -6,16 +6,16 @@ import java.awt.geom.Point2D;
 
 
 public class CementBrick extends Brick {
-
     private static final Color DEF_INNER = new Color(147, 147, 147);
     private static final Color DEF_BORDER = new Color(217, 199, 175);
     private static final int CEMENT_STRENGTH = 2;
+    public static final int DEF_CRACK_DEPTH = 1;
+    public static final int DEF_STEPS = 35;
 
-    private Crack crack;
+    private Crack crack = new Crack(DEF_CRACK_DEPTH, DEF_STEPS);
 
     public CementBrick(Point point, Dimension size) {
         super(point, size, DEF_BORDER, DEF_INNER, CEMENT_STRENGTH);
-        crack = new Crack(DEF_CRACK_DEPTH, DEF_STEPS);
     }
 
     @Override
@@ -24,7 +24,7 @@ public class CementBrick extends Brick {
             return false;
         super.impact();
         if (!super.isBroken()) {
-            crack.makeCrack(point, dir);
+            crack.makeCrack(point, dir, brickFace.getBounds());
             updateBrick();
             return false;
         }

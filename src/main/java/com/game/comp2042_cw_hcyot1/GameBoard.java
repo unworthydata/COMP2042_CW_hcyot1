@@ -74,33 +74,7 @@ public class GameBoard extends JComponent implements KeyListener, MouseListener,
         //initialize the first level
         wall.nextLevel();
 
-        gameTimer = new Timer(10, e -> {
-            wall.move();
-            wall.findImpacts();
-            message = String.format("Bricks: %d Balls %d", wall.getBrickCount(), wall.getBallCount());
-            if (wall.isBallLost()) {
-                if (wall.ballEnd()) {
-                    wall.wallReset();
-                    message = "Game over";
-                }
-                wall.ballReset();
-                gameTimer.stop();
-            } else if (wall.isDone()) {
-                if (wall.hasLevel()) {
-                    message = "Go to Next Level";
-                    gameTimer.stop();
-                    wall.ballReset();
-                    wall.wallReset();
-                    wall.nextLevel();
-                } else {
-                    message = "ALL WALLS DESTROYED";
-                    gameTimer.stop();
-                }
-            }
-
-            repaint();
-        });
-
+        gameTimer = new Timer(10, e -> initializeTimer());
     }
 
     public void paint(Graphics g) {
@@ -219,6 +193,33 @@ public class GameBoard extends JComponent implements KeyListener, MouseListener,
         } else {
             this.setCursor(Cursor.getDefaultCursor());
         }
+    }
+
+    private void initializeTimer() {
+        wall.move();
+        wall.findImpacts();
+        message = String.format("Bricks: %d Balls %d", wall.getBrickCount(), wall.getBallCount());
+        if (wall.isBallLost()) {
+            if (wall.ballEnd()) {
+                wall.wallReset();
+                message = "Game over";
+            }
+            wall.ballReset();
+            gameTimer.stop();
+        } else if (wall.isDone()) {
+            if (wall.hasLevel()) {
+                message = "Go to Next Level";
+                gameTimer.stop();
+                wall.ballReset();
+                wall.wallReset();
+                wall.nextLevel();
+            } else {
+                message = "ALL WALLS DESTROYED";
+                gameTimer.stop();
+            }
+        }
+
+        repaint();
     }
 
     private void initialize() {

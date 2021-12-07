@@ -61,7 +61,6 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
     private boolean menuClicked;
 
     public HomeMenu(GameFrame owner, Dimension area) {
-
         this.setFocusable(true);
         this.requestFocusInWindow();
 
@@ -85,8 +84,6 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
         gameTitleFont = new Font("Noto Mono", Font.BOLD, 40);
         creditsFont = new Font("Monospaced", Font.PLAIN, 10);
         buttonFont = new Font("Monospaced", Font.PLAIN, startButton.height - 2);
-
-
     }
 
     public void paint(Graphics g) {
@@ -94,7 +91,6 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
     }
 
     public void drawMenu(Graphics2D g2d) {
-
         drawContainer(g2d);
 
         /*
@@ -142,7 +138,6 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
     }
 
     private void drawText(Graphics2D g2d) {
-
         g2d.setColor(TEXT_COLOR);
 
         FontRenderContext frc = g2d.getFontRenderContext();
@@ -170,12 +165,9 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
 
         g2d.setFont(creditsFont);
         g2d.drawString(CREDITS, sX, sY);
-
-
     }
 
     private void drawButton(Graphics2D g2d) {
-
         FontRenderContext frc = g2d.getFontRenderContext();
 
         Rectangle2D txtRect = buttonFont.getStringBounds(START_TEXT, frc);
@@ -233,7 +225,6 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
             g2d.draw(menuButton);
             g2d.drawString(MENU_TEXT, x, y);
         }
-
     }
 
     @Override
@@ -274,17 +265,14 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
 
     @Override
     public void mouseEntered(MouseEvent mouseEvent) {
-
     }
 
     @Override
     public void mouseExited(MouseEvent mouseEvent) {
-
     }
 
     @Override
     public void mouseDragged(MouseEvent mouseEvent) {
-
     }
 
     @Override
@@ -294,6 +282,5 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
             this.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         else
             this.setCursor(Cursor.getDefaultCursor());
-
     }
 }

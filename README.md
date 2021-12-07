@@ -28,3 +28,14 @@ For Powershell/Linux-based systems use: ```./gradlew run```
 * Removed unused variable "name" in class Brick constructor and all related unused variables
 * Pushed up the repeated method "makeBrickFace()" in Brick subclasses
 * Replaced radiusA and radiusB in constructor of class "Ball" (a circle cannot have two different radii)
+
+07/12/2021:
+* Added src/test directory
+* Removed duplicate code in Ball constructor (used setPoints(radius, radius) instead)
+* Extracted Crack class from Brick class
+* Removed unnecessary spaces in classes
+* Moved as many declarations as possible from class constructors to inline
+* Introduced an enum "BrickType" to represent Brick types
+  * Brick types were set as "CLAY = 1" "STEEL = 2" "CEMENT = 3" in class "Wall"
+  * This is not flexible and can cause unintended side effects
+  * Introduced the enum "BrickType" and changed method signatures in the class "Wall" accordingly

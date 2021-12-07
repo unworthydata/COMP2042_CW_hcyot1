@@ -31,11 +31,7 @@ abstract public class Ball {
         this.innerColor = innerColor;
         this.borderColor = borderColor;
 
-        up.setLocation(center.getX(), center.getY() - (radius / 2));
-        down.setLocation(center.getX(), center.getY() + (radius / 2));
-
-        left.setLocation(center.getX() - (radius / 2), center.getY());
-        right.setLocation(center.getX() + (radius / 2), center.getY());
+        setPoints(radius, radius);
 
         ballFace = makeBall(center, radius);
     }

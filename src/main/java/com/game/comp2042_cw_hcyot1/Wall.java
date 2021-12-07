@@ -19,10 +19,7 @@ package com.game.comp2042_cw_hcyot1;
 
 import com.game.comp2042_cw_hcyot1.ball.Ball;
 import com.game.comp2042_cw_hcyot1.ball.RubberBall;
-import com.game.comp2042_cw_hcyot1.brick.Brick;
-import com.game.comp2042_cw_hcyot1.brick.CementBrick;
-import com.game.comp2042_cw_hcyot1.brick.ClayBrick;
-import com.game.comp2042_cw_hcyot1.brick.SteelBrick;
+import com.game.comp2042_cw_hcyot1.brick.*;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
@@ -31,10 +28,6 @@ import java.util.Random;
 
 public class Wall {
     private static final int LEVELS_COUNT = 4;
-
-    private static final int CLAY = 1;
-    private static final int STEEL = 2;
-    private static final int CEMENT = 3;
 
     private Random rnd;
     private Rectangle area;
@@ -52,7 +45,6 @@ public class Wall {
     private boolean ballLost;
 
     public Wall(Rectangle drawArea, int brickCount, int lineCount, double brickDimensionRatio, Point ballPos) {
-
         this.startPoint = new Point(ballPos);
 
         levels = makeLevels(drawArea, brickCount, lineCount, brickDimensionRatio);
@@ -87,10 +79,10 @@ public class Wall {
 
     private Brick[][] makeLevels(Rectangle drawArea, int brickCount, int lineCount, double brickDimensionRatio) {
         Brick[][] tmp = new Brick[LEVELS_COUNT][];
-        tmp[0] = makeSingleTypeLevel(drawArea, brickCount, lineCount, brickDimensionRatio, CLAY);
-        tmp[1] = makeChessboardLevel(drawArea, brickCount, lineCount, brickDimensionRatio, CLAY, CEMENT);
-        tmp[2] = makeChessboardLevel(drawArea, brickCount, lineCount, brickDimensionRatio, CLAY, STEEL);
-        tmp[3] = makeChessboardLevel(drawArea, brickCount, lineCount, brickDimensionRatio, STEEL, CEMENT);
+        tmp[0] = makeSingleTypeLevel(drawArea, brickCount, lineCount, brickDimensionRatio, BrickType.CLAY);
+        tmp[1] = makeChessboardLevel(drawArea, brickCount, lineCount, brickDimensionRatio, BrickType.CLAY, BrickType.CEMENT);
+        tmp[2] = makeChessboardLevel(drawArea, brickCount, lineCount, brickDimensionRatio, BrickType.CLAY, BrickType.STEEL);
+        tmp[3] = makeChessboardLevel(drawArea, brickCount, lineCount, brickDimensionRatio, BrickType.STEEL, BrickType.CEMENT);
         return tmp;
     }
 
@@ -198,18 +190,18 @@ public class Wall {
                 //Vertical Impact
                 case Brick.UP_IMPACT:
                     ball.reverseY();
-                    return b.setImpact(ball.getDown(), Brick.Crack.UP);
+                    return b.setImpact(ball.getDown(), Crack.UP);
                 case Brick.DOWN_IMPACT:
                     ball.reverseY();
-                    return b.setImpact(ball.getUp(), Brick.Crack.DOWN);
+                    return b.setImpact(ball.getUp(), Crack.DOWN);
 
                 //Horizontal Impact
                 case Brick.LEFT_IMPACT:
                     ball.reverseX();
-                    return b.setImpact(ball.getRight(), Brick.Crack.RIGHT);
+                    return b.setImpact(ball.getRight(), Crack.RIGHT);
                 case Brick.RIGHT_IMPACT:
                     ball.reverseX();
-                    return b.setImpact(ball.getLeft(), Brick.Crack.LEFT);
+                    return b.setImpact(ball.getLeft(), Crack.LEFT);
             }
         }
         return false;
@@ -220,7 +212,7 @@ public class Wall {
         return ((p.getX() < area.getX()) || (p.getX() > (area.getX() + area.getWidth())));
     }
 
-    private Brick makeBrick(Point point, Dimension size, int type) {
+    private Brick makeBrick(Point point, Dimension size, BrickType type) {
         Brick out;
         switch (type) {
             case CLAY:
@@ -238,7 +230,8 @@ public class Wall {
         return out;
     }
 
-    private Brick[] makeSingleTypeLevel(Rectangle drawArea, int brickCnt, int lineCnt, double brickSizeRatio, int type) {
+    private Brick[] makeSingleTypeLevel(Rectangle drawArea, int brickCnt, int lineCnt,
+                                        double brickSizeRatio, BrickType type) {
         /*
           if brickCount is not divisible by line count,brickCount is adjusted to the biggest
           multiple of lineCount smaller then brickCount
@@ -278,7 +271,8 @@ public class Wall {
 
     }
 
-    private Brick[] makeChessboardLevel(Rectangle drawArea, int brickCnt, int lineCnt, double brickSizeRatio, int typeA, int typeB) {
+    private Brick[] makeChessboardLevel(Rectangle drawArea, int brickCnt, int lineCnt,
+                                        double brickSizeRatio, BrickType typeA, BrickType typeB) {
         /*
           if brickCount is not divisible by line count,brickCount is adjusted to the biggest
           multiple of lineCount smaller then brickCount
