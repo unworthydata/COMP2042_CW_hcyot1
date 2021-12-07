@@ -42,3 +42,4 @@ For Powershell/Linux-based systems use: ```./gradlew run```
 * Extracted initializeTimer() method in GameBoard constructor
 * Extracted repeated code into a method in class Wall (randomSpeedX() and randomSpeedY())
 * Added BrickFactory to produce Bricks instead of directly in the Wall class
+* removed repeated method setImpact() in class SteelBrick
