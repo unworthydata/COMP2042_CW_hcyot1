@@ -40,3 +40,5 @@ For Powershell/Linux-based systems use: ```./gradlew run```
   * This is not flexible and can cause unintended side effects
   * Introduced the enum "BrickType" and changed method signatures in the class "Wall" accordingly
 * Extracted initializeTimer() method in GameBoard constructor
+* Extracted repeated code into a method in class Wall (randomSpeedX() and randomSpeedY())
+* Added BrickFactory to produce Bricks instead of directly in the Wall class
