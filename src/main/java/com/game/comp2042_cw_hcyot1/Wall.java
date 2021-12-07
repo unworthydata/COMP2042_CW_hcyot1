@@ -25,7 +25,6 @@ import java.awt.*;
 import java.awt.geom.Point2D;
 import java.util.Random;
 
-
 public class Wall {
     private static final int LEVELS_COUNT = 4;
 
@@ -56,21 +55,28 @@ public class Wall {
         rnd = new Random();
 
         makeBall(ballPos);
-        int speedX, speedY;
-        do {
-            speedX = rnd.nextInt(5) - 2;
-        } while (speedX == 0);
-        do {
-            speedY = -rnd.nextInt(3);
-        } while (speedY == 0);
 
-        ball.setSpeed(speedX, speedY);
+        ball.setSpeed(randomSpeedX(), randomSpeedY());
 
         player = new Player((Point) ballPos.clone(), 150, 10, drawArea);
 
         area = drawArea;
+    }
 
+    private int randomSpeedY() {
+        int speedY;
+        do {
+            speedY = -rnd.nextInt(3);
+        } while (speedY == 0);
+        return speedY;
+    }
 
+    private int randomSpeedX() {
+        int speedX;
+        do {
+            speedX = rnd.nextInt(5) - 2;
+        } while (speedX == 0);
+        return speedX;
     }
 
     private void makeBall(Point2D ballPos) {
@@ -124,15 +130,7 @@ public class Wall {
     public void ballReset() {
         player.moveTo(startPoint);
         ball.moveTo(startPoint);
-        int speedX, speedY;
-        do {
-            speedX = rnd.nextInt(5) - 2;
-        } while (speedX == 0);
-        do {
-            speedY = -rnd.nextInt(3);
-        } while (speedY == 0);
-
-        ball.setSpeed(speedX, speedY);
+        ball.setSpeed(randomSpeedX(), randomSpeedY());
         ballLost = false;
     }
 
@@ -207,69 +205,62 @@ public class Wall {
         return false;
     }
 
+//---------Model
+
     private boolean impactBorder() {
         Point2D p = ball.getPosition();
         return ((p.getX() < area.getX()) || (p.getX() > (area.getX() + area.getWidth())));
     }
 
     private Brick makeBrick(Point point, Dimension size, BrickType type) {
-        Brick out;
-        switch (type) {
-            case CLAY:
-                out = new ClayBrick(point, size);
-                break;
-            case STEEL:
-                out = new SteelBrick(point, size);
-                break;
-            case CEMENT:
-                out = new CementBrick(point, size);
-                break;
-            default:
-                throw new IllegalArgumentException(String.format("Unknown Type:%d\n", type));
-        }
-        return out;
+        return switch (type) {
+            case CLAY -> new ClayBrick(point, size);
+            case STEEL -> new SteelBrick(point, size);
+            case CEMENT -> new CementBrick(point, size);
+            default -> throw new IllegalArgumentException(String.format("Unknown Type:%s\n", type));
+        };
     }
 
     private Brick[] makeSingleTypeLevel(Rectangle drawArea, int brickCnt, int lineCnt,
-                                        double brickSizeRatio, BrickType type) {
+                                    double brickSizeRatio, BrickType type) {
         /*
           if brickCount is not divisible by line count,brickCount is adjusted to the biggest
           multiple of lineCount smaller then brickCount
          */
-        brickCnt -= brickCnt % lineCnt;
+    brickCnt -= brickCnt % lineCnt;
 
-        int brickOnLine = brickCnt / lineCnt;
+    int brickOnLine = brickCnt / lineCnt;
 
-        double brickLen = drawArea.getWidth() / brickOnLine;
-        double brickHgt = brickLen / brickSizeRatio;
+    double brickLen = drawArea.getWidth() / brickOnLine;
+    double brickHgt = brickLen / brickSizeRatio;
 
-        brickCnt += lineCnt / 2;
+    brickCnt += lineCnt / 2;
 
-        Brick[] tmp = new Brick[brickCnt];
+    Brick[] tmp = new Brick[brickCnt];
 
-        Dimension brickSize = new Dimension((int) brickLen, (int) brickHgt);
-        Point p = new Point();
+    Dimension brickSize = new Dimension((int) brickLen, (int) brickHgt);
+    Point p = new Point();
 
-        int i;
-        for (i = 0; i < tmp.length; i++) {
-            int line = i / brickOnLine;
-            if (line == lineCnt)
-                break;
-            double x = (i % brickOnLine) * brickLen;
-            x = (line % 2 == 0) ? x : (x - (brickLen / 2));
-            double y = (line) * brickHgt;
-            p.setLocation(x, y);
-            tmp[i] = makeBrick(p, brickSize, type);
-        }
-
-        for (double y = brickHgt; i < tmp.length; i++, y += 2 * brickHgt) {
-            double x = (brickOnLine * brickLen) - (brickLen / 2);
-            p.setLocation(x, y);
-            tmp[i] = new ClayBrick(p, brickSize);
-        }
-        return tmp;
-
+    int i;
+    for (i = 0; i < tmp.length; i++) {
+        int line = i / brickOnLine;
+        if (line == lineCnt)
+            break;
+        double x = (i % brickOnLine) * brickLen;
+        x = (line % 2 == 0) ? x : (x - (brickLen / 2));
+        double y = (line) * brickHgt;
+        p.setLocation(x, y);
+        tmp[i] = makeBrick(p, brickSize, type);
     }
+
+    for (double y = brickHgt; i < tmp.length; i++, y += 2 * brickHgt) {
+        double x = (brickOnLine * brickLen) - (brickLen / 2);
+        p.setLocation(x, y);
+        tmp[i] = new ClayBrick(p, brickSize);
+    }
+    return tmp;
+
+}
 
     private Brick[] makeChessboardLevel(Rectangle drawArea, int brickCnt, int lineCnt,
                                         double brickSizeRatio, BrickType typeA, BrickType typeB) {
@@ -316,4 +307,8 @@ public class Wall {
         }
         return tmp;
     }
+
+//---------View
+
+//---------Controller
 }
