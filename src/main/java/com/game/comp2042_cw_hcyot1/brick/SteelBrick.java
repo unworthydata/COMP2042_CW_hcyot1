@@ -29,23 +29,15 @@ public class SteelBrick extends Brick {
     private static final int STEEL_STRENGTH = 1;
     private static final double STEEL_PROBABILITY = 0.4;
 
-    private Random rnd;
+    private Random rnd = new Random();
 
     public SteelBrick(Point point, Dimension size) {
         super(point, size, DEF_BORDER, DEF_INNER, STEEL_STRENGTH);
-        rnd = new Random();
     }
 
-    public boolean setImpact(Point2D point, int dir) {
-        if (super.isBroken())
-            return false;
-        impact();
-        return super.isBroken();
-    }
-
+    @Override
     public void impact() {
-        if (rnd.nextDouble() < STEEL_PROBABILITY) {
+        if (rnd.nextDouble() < STEEL_PROBABILITY)
             super.impact();
-        }
     }
 }
