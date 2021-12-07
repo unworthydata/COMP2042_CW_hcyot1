@@ -39,3 +39,4 @@ For Powershell/Linux-based systems use: ```./gradlew run```
   * Brick types were set as "CLAY = 1" "STEEL = 2" "CEMENT = 3" in class "Wall"
   * This is not flexible and can cause unintended side effects
   * Introduced the enum "BrickType" and changed method signatures in the class "Wall" accordingly
+* Extracted initializeTimer() method in GameBoard constructor
