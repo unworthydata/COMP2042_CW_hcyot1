@@ -25,7 +25,6 @@ import java.awt.*;
 import java.awt.geom.Point2D;
 import java.util.Random;
 
-
 public class Wall {
     private static final int LEVELS_COUNT = 4;
 
@@ -212,24 +211,6 @@ public class Wall {
         return ((p.getX() < area.getX()) || (p.getX() > (area.getX() + area.getWidth())));
     }
 
-    private Brick makeBrick(Point point, Dimension size, BrickType type) {
-        Brick out;
-        switch (type) {
-            case CLAY:
-                out = new ClayBrick(point, size);
-                break;
-            case STEEL:
-                out = new SteelBrick(point, size);
-                break;
-            case CEMENT:
-                out = new CementBrick(point, size);
-                break;
-            default:
-                throw new IllegalArgumentException(String.format("Unknown Type:%d\n", type));
-        }
-        return out;
-    }
-
     private Brick[] makeSingleTypeLevel(Rectangle drawArea, int brickCnt, int lineCnt,
                                         double brickSizeRatio, BrickType type) {
         /*
@@ -259,7 +240,7 @@ public class Wall {
             x = (line % 2 == 0) ? x : (x - (brickLen / 2));
             double y = (line) * brickHgt;
             p.setLocation(x, y);
-            tmp[i] = makeBrick(p, brickSize, type);
+            tmp[i] = BrickFactory.makeBrick(p, brickSize, type);
         }
 
         for (double y = brickHgt; i < tmp.length; i++, y += 2 * brickHgt) {
@@ -306,13 +287,13 @@ public class Wall {
             p.setLocation(x, y);
 
             boolean b = ((line % 2 == 0 && i % 2 == 0) || (line % 2 != 0 && posX > centerLeft && posX <= centerRight));
-            tmp[i] = b ? makeBrick(p, brickSize, typeA) : makeBrick(p, brickSize, typeB);
+            tmp[i] = b ? BrickFactory.makeBrick(p, brickSize, typeA) : BrickFactory.makeBrick(p, brickSize, typeB);
         }
 
         for (double y = brickHgt; i < tmp.length; i++, y += 2 * brickHgt) {
             double x = (brickOnLine * brickLen) - (brickLen / 2);
             p.setLocation(x, y);
-            tmp[i] = makeBrick(p, brickSize, typeA);
+            tmp[i] = BrickFactory.makeBrick(p, brickSize, typeA);
         }
         return tmp;
     }
