@@ -17,8 +17,7 @@
  */
 package com.game.comp2042_cw_hcyot1.debug;
 
-import com.game.comp2042_cw_hcyot1.Wall;
-import com.game.comp2042_cw_hcyot1.brick.CementBrick;
+import com.game.comp2042_cw_hcyot1.GameModel;
 
 import javax.swing.*;
 import javax.swing.event.ChangeListener;
@@ -35,19 +34,19 @@ public class DebugPanel extends JPanel {
 
     private JSlider ballXSpeed;
     private JSlider ballYSpeed;
-    private Wall wall;
+    private GameModel gameModel;
 
-    public DebugPanel(Wall wall) {
+    public DebugPanel(GameModel gameModel) {
 
-        this.wall = wall;
+        this.gameModel = gameModel;
 
         initialize();
 
-        skipLevel = makeButton("Skip Level", e -> wall.nextLevel());
-        resetBalls = makeButton("Reset Balls", e -> wall.resetBallCount());
+        skipLevel = makeButton("Skip Level", e -> gameModel.nextLevel());
+        resetBalls = makeButton("Reset Balls", e -> gameModel.resetBallCount());
 
-        ballXSpeed = makeSlider(-4, 4, e -> wall.setBallXSpeed(ballXSpeed.getValue()));
-        ballYSpeed = makeSlider(-4, 4, e -> wall.setBallYSpeed(ballYSpeed.getValue()));
+        ballXSpeed = makeSlider(-4, 4, e -> gameModel.setBallSpeedX(ballXSpeed.getValue()));
+        ballYSpeed = makeSlider(-4, 4, e -> gameModel.setBallSpeedY(ballYSpeed.getValue()));
 
         this.add(skipLevel);
         this.add(resetBalls);

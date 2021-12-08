@@ -43,7 +43,7 @@ public class GameBoard extends JComponent implements KeyListener, MouseListener,
 
     private Timer gameTimer;
 
-    private Wall wall;
+    private GameModel gameModel;
 
     private String message;
 
@@ -67,12 +67,11 @@ public class GameBoard extends JComponent implements KeyListener, MouseListener,
 
         this.initialize();
         message = "";
-        wall = new Wall(new Rectangle(0, 0, DEF_WIDTH, DEF_HEIGHT), 30,
-                3, 6 / 2, new Point(300, 430));
+        gameModel = new GameModel(new Rectangle(0, 0, DEF_WIDTH, DEF_HEIGHT), new Point(300, 430));
 
-        debugConsole = new DebugConsole(owner, wall, this);
+        debugConsole = new DebugConsole(owner, gameModel, this);
         //initialize the first level
-        wall.nextLevel();
+        gameModel.nextLevel();
 
         gameTimer = new Timer(10, e -> initializeTimer());
     }
@@ -85,13 +84,13 @@ public class GameBoard extends JComponent implements KeyListener, MouseListener,
         g2d.setColor(Color.BLUE);
         g2d.drawString(message, 250, 225);
 
-        drawBall(wall.getBall(), g2d);
+        drawBall(gameModel.getBall(), g2d);
 
-        for (Brick b : wall.getBricks())
-            if (!b.isBroken())
-                drawBrick(b, g2d);
+        for (Brick brick : gameModel.getBricks())
+            if (!brick.isBroken())
+                drawBrick(brick, g2d);
 
-        drawPlayer(wall.getPlayer(), g2d);
+        drawPlayer(gameModel.getPlayer(), g2d);
 
         if (showPauseMenu)
             drawMenu(g2d);
@@ -107,10 +106,10 @@ public class GameBoard extends JComponent implements KeyListener, MouseListener,
     public void keyPressed(KeyEvent keyEvent) {
         switch (keyEvent.getKeyCode()) {
             case KeyEvent.VK_A:
-                wall.getPlayer().moveLeft();
+                gameModel.getPlayer().moveLeft();
                 break;
             case KeyEvent.VK_D:
-                wall.getPlayer().movRight();
+                gameModel.getPlayer().movRight();
                 break;
             case KeyEvent.VK_ESCAPE:
                 showPauseMenu = !showPauseMenu;
@@ -128,13 +127,13 @@ public class GameBoard extends JComponent implements KeyListener, MouseListener,
                 if (keyEvent.isAltDown() && keyEvent.isShiftDown())
                     debugConsole.setVisible(true);
             default:
-                wall.getPlayer().stop();
+                gameModel.getPlayer().stop();
         }
     }
 
     @Override
     public void keyReleased(KeyEvent keyEvent) {
-        wall.getPlayer().stop();
+        gameModel.getPlayer().stop();
     }
 
     @Override
@@ -147,8 +146,8 @@ public class GameBoard extends JComponent implements KeyListener, MouseListener,
             repaint();
         } else if (restartButtonRect.contains(p)) {
             message = "Restarting Game...";
-            wall.ballReset();
-            wall.wallReset();
+            gameModel.ballReset();
+            gameModel.wallReset();
             showPauseMenu = false;
             repaint();
         } else if (exitButtonRect.contains(p)) {
@@ -196,23 +195,23 @@ public class GameBoard extends JComponent implements KeyListener, MouseListener,
     }
 
     private void initializeTimer() {
-        wall.move();
-        wall.findImpacts();
-        message = String.format("Bricks: %d Balls %d", wall.getBrickCount(), wall.getBallCount());
-        if (wall.isBallLost()) {
-            if (wall.ballEnd()) {
-                wall.wallReset();
+        gameModel.move();
+        gameModel.findImpacts();
+        message = String.format("Bricks: %d Balls %d", gameModel.getBrickCount(), gameModel.getBallCount());
+        if (gameModel.isBallLost()) {
+            if (gameModel.ballEnd()) {
+                gameModel.wallReset();
                 message = "Game over";
             }
-            wall.ballReset();
+            gameModel.ballReset();
             gameTimer.stop();
-        } else if (wall.isDone()) {
-            if (wall.hasLevel()) {
+        } else if (gameModel.isDone()) {
+            if (gameModel.hasLevel()) {
                 message = "Go to Next Level";
                 gameTimer.stop();
-                wall.ballReset();
-                wall.wallReset();
-                wall.nextLevel();
+                gameModel.ballReset();
+                gameModel.wallReset();
+                gameModel.nextLevel();
             } else {
                 message = "ALL WALLS DESTROYED";
                 gameTimer.stop();

@@ -18,7 +18,7 @@
 package com.game.comp2042_cw_hcyot1.debug;
 
 import com.game.comp2042_cw_hcyot1.GameBoard;
-import com.game.comp2042_cw_hcyot1.Wall;
+import com.game.comp2042_cw_hcyot1.GameModel;
 import com.game.comp2042_cw_hcyot1.ball.Ball;
 
 import javax.swing.*;
@@ -32,15 +32,15 @@ public class DebugConsole extends JDialog implements WindowListener {
     private JFrame owner;
     private DebugPanel debugPanel;
     private GameBoard gameBoard;
-    private Wall wall;
+    private GameModel gameModel;
 
-    public DebugConsole(JFrame owner, Wall wall, GameBoard gameBoard) {
-        this.wall = wall;
+    public DebugConsole(JFrame owner, GameModel gameModel, GameBoard gameBoard) {
+        this.gameModel = gameModel;
         this.owner = owner;
         this.gameBoard = gameBoard;
         initialize();
 
-        debugPanel = new DebugPanel(wall);
+        debugPanel = new DebugPanel(gameModel);
         this.add(debugPanel, BorderLayout.CENTER);
 
         this.pack();
@@ -85,7 +85,7 @@ public class DebugConsole extends JDialog implements WindowListener {
     @Override
     public void windowActivated(WindowEvent windowEvent) {
         setLocation();
-        Ball b = wall.getBall();
+        Ball b = gameModel.getBall();
         debugPanel.setValues(b.getSpeedX(), b.getSpeedY());
     }
 
