@@ -27,20 +27,13 @@ import java.awt.geom.Point2D;
 import java.util.Random;
 
 public class GameModel {
-    private static final int LEVELS_COUNT = 4;
-
     private Random rnd;
     private Rectangle area;
 
-    private Brick[] bricks;
     private Ball ball;
     private Player player;
 
-    private Brick[][] levels;
-    private int level;
-
     private Point startPoint;
-    private int brickCount;
     private int ballCount;
     private boolean ballLost;
 
@@ -109,7 +102,7 @@ public class GameModel {
 
     public void wallReset() {
         wallHandler.wallReset();
-        ballCount = 3;
+        ballReset();
     }
 
     public boolean ballEnd() {

@@ -86,7 +86,8 @@ public class GameBoard extends JComponent implements KeyListener, MouseListener,
 
         drawBall(gameModel.getBall(), g2d);
 
-        for (Brick brick : gameModel.getBricks())
+        Brick[] bricks = gameModel.getBricks();
+        for (Brick brick : bricks)
             if (!brick.isBroken())
                 drawBrick(brick, g2d);
 
@@ -251,7 +252,6 @@ public class GameBoard extends JComponent implements KeyListener, MouseListener,
 
         g2d.setColor(brick.getBorderColor());
         g2d.draw(brick.getBrick());
-
 
         g2d.setColor(tmp);
     }

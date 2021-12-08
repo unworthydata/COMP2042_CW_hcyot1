@@ -15,11 +15,11 @@ public class CheckerboardWall extends Wall {
         this.typeA = typeA;
         this.typeB = typeB;
 
-        bricks = makeWall();
+        bricks = makeBricks();
     }
 
     @Override
-    protected Brick[] makeWall() {
+    protected Brick[] makeBricks() {
         /*
           if brickCount is not divisible by line count,brickCount is adjusted to the biggest
           multiple of lineCount smaller then brickCount

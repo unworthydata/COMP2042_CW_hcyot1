@@ -8,7 +8,7 @@ import com.game.comp2042_cw_hcyot1.brick.Crack;
 public class WallHandler {
     private final int WALLS_COUNT = 4;
 
-    private Wall[] walls = makeWalls();
+    private Wall[] walls;
     private Wall currentWall;
     private double drawAreaWidth;
 
@@ -16,6 +16,7 @@ public class WallHandler {
 
     public WallHandler(double drawAreaWidth) {
         this.drawAreaWidth = drawAreaWidth;
+        walls = makeWalls();
     }
 
     public int breakBrick() {
@@ -51,11 +52,6 @@ public class WallHandler {
     public boolean hasLevel() {
         return wall < walls.length;
     }
-
-//    SUS
-//    public Brick[] getBricks() {
-//        return bricks;
-//    }
 
     public boolean impactWall(Ball ball) {
         for (Brick brick : currentWall.getBricks()) {

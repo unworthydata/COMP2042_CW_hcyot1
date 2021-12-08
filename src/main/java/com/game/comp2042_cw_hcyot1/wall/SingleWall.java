@@ -13,11 +13,11 @@ public class SingleWall extends Wall {
         super(drawAreaWidth);
         this.type = type;
 
-        bricks = makeWall();
+        bricks = makeBricks();
     }
 
     @Override
-    protected Brick[] makeWall() {
+    protected Brick[] makeBricks() {
         /*
           if brickCount is not divisible by line count,brickCount is adjusted to the biggest
           multiple of lineCount smaller then brickCount

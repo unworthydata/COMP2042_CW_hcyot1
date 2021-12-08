@@ -44,5 +44,5 @@ public abstract class Wall {
         brickCount = bricks.length;
     }
 
-    protected abstract Brick[] makeWall();
+    protected abstract Brick[] makeBricks();
 }
