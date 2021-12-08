@@ -3,8 +3,8 @@
 ## To run this game:
 Clone the repo, then navigate to it in your CLI
   
-For CMD use: ```gradlew run```  
-For Powershell/Linux-based systems use: ```./gradlew run```
+For Windows use: ```gradlew run```  
+For UNIX-based systems use: ```./gradlew run```
 
 ## Example
   ![image](https://user-images.githubusercontent.com/65664371/144083391-603a3772-0867-4623-9b77-c221503059f9.png)
@@ -58,5 +58,7 @@ For Powershell/Linux-based systems use: ```./gradlew run```
   * WallHandler --> _(Records the state of the multiple walls that make up the game)_
   * GameLogic --> _(Contains the ball-related aspects)_
 
-* Pushed down much functionality to the Wall class in a psuedo-chain-of-command pattern
+Pushed down much functionality to the Wall class in a psuedo-chain-of-command pattern.
+Any function call regarding low-level details of a wall go through this chain: `GameModel -> WallHandler -> Wall`
+
   
