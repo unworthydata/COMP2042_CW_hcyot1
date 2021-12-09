@@ -63,5 +63,42 @@ Any function call regarding low-level details of a wall go through this chain: `
 ---
 #### 09/12/2021:
 * Wrote tests for the newly implemented Wall subclasses and the WallHandler classes
-
+* Fix the Model-View coupling in GameFrame, HomeMenu and GameBoard. **_The Plan™_** is as follows:
   
+Use the mediator pattern to handle collaboration between the new classes. Use interfaces to reduce
+coupling and increase extensibility. In the future, we might want to create a new menu or a game with a new look, and using interfaces means we just make a new class with those required features.  
+  
+First we find the functionality that can be extracted (method signatures), then write tests for any testable class, then implement the new methods, and inject the new classes into the old code.
+  
+##### CLASSES BEFORE
+* GameFrame --> _(Handling switching between HomeMenu and GameBoard)_
+* HomeMenu --> _(Drawing Main menu and handling mouse events)_
+* GameBoard --> _()_
+##### CLASSES AFTER
+* _package painter_
+  * Painter --> _(Interface)_
+  * BasicPainter
+* _package mediator_
+  * Mediator --> _(Interface)_
+  * BasicMediator
+* _package mainMenu_
+  * MainMenuModel --> _(Interface)_
+  * MainMenuView --> _(Interface)_
+  * MainMenuController --> _(Interface)_
+  * BasicMainMenuModel
+  * BasicMainMenuView
+  * BasicMainMenuController
+* _package gameBoard_
+  * GameBoardModel --> _(Interface)_
+  * GameBoardView --> _(Interface)_
+  * GameBoardController --> _(Interface)_
+  * BasicGameBoardModel
+  * BasicGameBoardView
+  * BasicGameBoardController
+* _package pauseMenu_
+  * PauseModel --> _(Interface)_
+  * PauseView --> _(Interface)_
+  * PauseController --> _(Interface)_
+  * BasicPauseModel
+  * BasicPauseView
+  * BasicPauseController

@@ -70,12 +70,11 @@ public class GameBoard extends JComponent implements KeyListener, MouseListener,
         gameModel = new GameModel(new Rectangle(0, 0, DEF_WIDTH, DEF_HEIGHT), new Point(300, 430));
 
         debugConsole = new DebugConsole(owner, gameModel, this);
-        //initialize the first level
-        gameModel.nextLevel();
 
         gameTimer = new Timer(10, e -> initializeTimer());
     }
 
+    @Override
     public void paint(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
 
@@ -307,7 +306,6 @@ public class GameBoard extends JComponent implements KeyListener, MouseListener,
         Font tmpFont = g2d.getFont();
         Color tmpColor = g2d.getColor();
 
-
         g2d.setFont(menuFont);
         g2d.setColor(MENU_COLOR);
 
@@ -323,7 +321,6 @@ public class GameBoard extends JComponent implements KeyListener, MouseListener,
 
         x = this.getWidth() / 8;
         y = this.getHeight() / 4;
-
 
         if (continueButtonRect == null) {
             FontRenderContext frc = g2d.getFontRenderContext();
@@ -350,7 +347,6 @@ public class GameBoard extends JComponent implements KeyListener, MouseListener,
         }
 
         g2d.drawString(EXIT, x, y);
-
 
         g2d.setFont(tmpFont);
         g2d.setColor(tmpColor);

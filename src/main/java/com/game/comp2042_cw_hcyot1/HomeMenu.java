@@ -205,7 +205,6 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
 
         menuButton.setLocation(x, y);
 
-
         x = (int) (menuButton.getWidth() - mTxtRect.getWidth()) / 2;
         y = (int) (menuButton.getHeight() - mTxtRect.getHeight()) / 2;
 
