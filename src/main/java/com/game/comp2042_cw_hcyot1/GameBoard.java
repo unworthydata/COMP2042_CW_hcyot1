@@ -20,6 +20,7 @@ package com.game.comp2042_cw_hcyot1;
 import com.game.comp2042_cw_hcyot1.ball.Ball;
 import com.game.comp2042_cw_hcyot1.brick.Brick;
 import com.game.comp2042_cw_hcyot1.debug.DebugConsole;
+import com.game.comp2042_cw_hcyot1.painter.BasicPainter;
 
 import javax.swing.*;
 import java.awt.*;
@@ -39,6 +40,8 @@ public class GameBoard extends JComponent implements KeyListener, MouseListener,
     private static final int DEF_HEIGHT = 450;
 
     private static final Color BG_COLOR = Color.WHITE;
+
+    private BasicPainter painter;
 
     private Timer gameTimer;
 
@@ -76,20 +79,20 @@ public class GameBoard extends JComponent implements KeyListener, MouseListener,
     @Override
     public void paint(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
-
-        clear(g2d);
+        painter = new BasicPainter(g2d, DEF_WIDTH, DEF_HEIGHT);
+        painter.clear(BG_COLOR);
 
         g2d.setColor(Color.BLUE);
         g2d.drawString(message, 250, 225);
 
-        drawBall(gameModel.getBall(), g2d);
+        painter.drawBall(gameModel.getBall());
 
         Brick[] bricks = gameModel.getBricks();
         for (Brick brick : bricks)
             if (!brick.isBroken())
-                drawBrick(brick, g2d);
+                painter.drawBrick(brick);
 
-        drawPlayer(gameModel.getPlayer(), g2d);
+        painter.drawPlayer(gameModel.getPlayer());
 
         if (showPauseMenu)
             drawMenu(g2d);
@@ -234,70 +237,9 @@ public class GameBoard extends JComponent implements KeyListener, MouseListener,
         repaint();
     }
 
-    private void clear(Graphics2D g2d) {
-        Color tmp = g2d.getColor();
-        g2d.setColor(BG_COLOR);
-        g2d.fillRect(0, 0, getWidth(), getHeight());
-        g2d.setColor(tmp);
-    }
-
-    private void drawBrick(Brick brick, Graphics2D g2d) {
-        Color tmp = g2d.getColor();
-
-        g2d.setColor(brick.getInnerColor());
-        g2d.fill(brick.getBrick());
-
-        g2d.setColor(brick.getBorderColor());
-        g2d.draw(brick.getBrick());
-
-        g2d.setColor(tmp);
-    }
-
-    private void drawBall(Ball ball, Graphics2D g2d) {
-        Color tmp = g2d.getColor();
-
-        Shape s = ball.getBallFace();
-
-        g2d.setColor(ball.getInnerColor());
-        g2d.fill(s);
-
-        g2d.setColor(ball.getBorderColor());
-        g2d.draw(s);
-
-        g2d.setColor(tmp);
-    }
-
-    private void drawPlayer(Player p, Graphics2D g2d) {
-        Color tmp = g2d.getColor();
-
-        Shape s = p.getPlayerFace();
-        g2d.setColor(Player.INNER_COLOR);
-        g2d.fill(s);
-
-        g2d.setColor(Player.BORDER_COLOR);
-        g2d.draw(s);
-
-        g2d.setColor(tmp);
-    }
-
     private void drawMenu(Graphics2D g2d) {
-        obscureGameBoard(g2d);
+        painter.obscureGameBoard();
         drawPauseMenu(g2d);
-    }
-
-    private void obscureGameBoard(Graphics2D g2d) {
-
-        Composite tmp = g2d.getComposite();
-        Color tmpColor = g2d.getColor();
-
-        AlphaComposite ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.55f);
-        g2d.setComposite(ac);
-
-        g2d.setColor(Color.BLACK);
-        g2d.fillRect(0, 0, DEF_WIDTH, DEF_HEIGHT);
-
-        g2d.setComposite(tmp);
-        g2d.setColor(tmpColor);
     }
 
     private void drawPauseMenu(Graphics2D g2d) {
