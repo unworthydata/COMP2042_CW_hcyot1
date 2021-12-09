@@ -19,7 +19,7 @@ public abstract class Wall {
     }
 
     public int breakBrick() {
-        return brickCount--;
+        return --brickCount;
     }
 
     public int getBrickCount() {

@@ -28,10 +28,10 @@ abstract public class Brick {
     private boolean broken = false;
 
     public Brick(Point pos, Dimension size, Color borderColor, Color innerColor, int strength) {
-        brickFace = makeBrickFace(pos, size);
         this.borderColor = borderColor;
         this.innerColor = innerColor;
         this.fullStrength = this.strength = strength;
+        brickFace = makeBrickFace(pos, size);
     }
 
     public boolean setImpact(Point2D point, int direction) {

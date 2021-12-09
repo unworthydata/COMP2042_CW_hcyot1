@@ -60,5 +60,8 @@ For UNIX-based systems use: ```./gradlew run```
 
 Pushed down much functionality to the Wall class in a psuedo-chain-of-command pattern.
 Any function call regarding low-level details of a wall go through this chain: `GameModel -> WallHandler -> Wall`
+---
+#### 09/12/2021:
+* Wrote tests for the newly implemented Wall subclasses and the WallHandler classes
 
   

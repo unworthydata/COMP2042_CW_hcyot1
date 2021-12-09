@@ -40,7 +40,6 @@ public class Player {
         playerFace = makeRectangle(width, height);
         min = container.x + (width / 2);
         max = min + container.width - width;
-
     }
 
     public boolean impact(Ball b) {

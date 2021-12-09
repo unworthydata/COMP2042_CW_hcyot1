@@ -17,6 +17,7 @@ public class WallHandler {
     public WallHandler(double drawAreaWidth) {
         this.drawAreaWidth = drawAreaWidth;
         walls = makeWalls();
+        currentWall = walls[0];
     }
 
     public int breakBrick() {

@@ -37,7 +37,7 @@ public class CementBrick extends Brick {
     }
 
     private void updateBrick() {
-        if (!super.isBroken()) {
+        if (!isBroken()) {
             GeneralPath gp = crack.draw();
             gp.append(brickFace, false);
             brickFace = gp;
