@@ -58,7 +58,7 @@ public class Player {
         moveAmount = -DEF_MOVE_AMOUNT;
     }
 
-    public void movRight() {
+    public void moveRight() {
         moveAmount = DEF_MOVE_AMOUNT;
     }
 

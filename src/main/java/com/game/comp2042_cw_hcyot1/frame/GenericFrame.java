@@ -1,51 +1,40 @@
-/*
- *  Brick Destroy - A simple Arcade video game
- *   Copyright (C) 2017  Filippo Ranza
- *
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation, either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-package com.game.comp2042_cw_hcyot1;
+package com.game.comp2042_cw_hcyot1.frame;
+
+import com.game.comp2042_cw_hcyot1.HomeMenu;
+import com.game.comp2042_cw_hcyot1.debug.DebugConsole;
+import com.game.comp2042_cw_hcyot1.gameBoard.*;
+import com.game.comp2042_cw_hcyot1.mainMenu.MainMenuView;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.datatransfer.StringSelection;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowFocusListener;
-import java.awt.event.WindowListener;
 
-
-public class GameFrame extends JFrame implements WindowFocusListener {
+public abstract class GenericFrame extends JFrame implements WindowFocusListener {
 
     private static final String DEF_TITLE = "Brick Destroy";
+    protected final MainMenuView mainMenuView;
 
-    private GameBoard gameBoard;
-    private HomeMenu homeMenu;
+    protected GameBoardModel model;
+    protected GameBoardView view;
+    protected GameBoardController controller;
 
     private boolean gaming;
 
-    public GameFrame() {
+    public GenericFrame(GameBoardModel model, GameBoardView gameBoardView, GameBoardController controller, MainMenuView mainMenuView) {
         super();
 
         gaming = false;
 
         this.setLayout(new BorderLayout());
 
-        gameBoard = new GameBoard(this);
+        this.model = model;
+        this.view = gameBoardView;
+        this.controller = controller;
+        connect(model, gameBoardView, controller);
 
-        homeMenu = new HomeMenu(this, new Dimension(450, 300));
-
-        this.add(homeMenu, BorderLayout.CENTER);
+        this.mainMenuView = mainMenuView;
+        this.add(mainMenuView, BorderLayout.CENTER);
 
         this.setUndecorated(true);
     }
@@ -60,8 +49,8 @@ public class GameFrame extends JFrame implements WindowFocusListener {
 
     public void enableGameBoard() {
         this.dispose();
-        this.remove(homeMenu);
-        this.add(gameBoard, BorderLayout.CENTER);
+        this.remove(mainMenuView);
+        this.add(view, BorderLayout.CENTER);
         this.setUndecorated(false);
         initialize();
         /*to avoid problems with graphics focus controller is added here*/
@@ -84,7 +73,7 @@ public class GameFrame extends JFrame implements WindowFocusListener {
     @Override
     public void windowLostFocus(WindowEvent windowEvent) {
         if (gaming)
-            gameBoard.onLostFocus();
+            controller.handleOnLostFocus();
     }
 
     private void autoLocate() {
@@ -93,4 +82,15 @@ public class GameFrame extends JFrame implements WindowFocusListener {
         int y = (size.height - this.getHeight()) / 2;
         this.setLocation(x, y);
     }
+
+    private void connect(GameBoardModel model, GameBoardView view, GameBoardController controller) {
+        view.setController(controller);
+
+        controller.setModel(model);
+        controller.setView(view);
+
+        model.setController(controller);
+    }
+
+    public abstract void showDebug();
 }

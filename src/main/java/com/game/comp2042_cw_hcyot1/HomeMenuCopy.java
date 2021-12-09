@@ -25,8 +25,11 @@ import java.awt.event.MouseMotionListener;
 import java.awt.font.FontRenderContext;
 import java.awt.geom.Rectangle2D;
 
+import com.game.comp2042_cw_hcyot1.frame.GenericFrame;
 
-public class HomeMenu extends JComponent implements MouseListener, MouseMotionListener {
+
+public class HomeMenuCopy extends JComponent implements MouseListener, MouseMotionListener {
+
     private static final String GREETINGS = "Welcome to:";
     private static final String GAME_TITLE = "Brick Destroy";
     private static final String CREDITS = "Version 0.1";
@@ -54,12 +57,12 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
     private Font creditsFont;
     private Font buttonFont;
 
-    private GameFrame owner;
+    private GenericFrame owner;
 
     private boolean startClicked;
     private boolean menuClicked;
 
-    public HomeMenu(GameFrame owner, Dimension area) {
+    public HomeMenuCopy(GenericFrame owner, Dimension area) {
         this.setFocusable(true);
         this.requestFocusInWindow();
 
@@ -84,7 +87,6 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
         buttonFont = new Font("Monospaced", Font.PLAIN, startButton.height - 2);
     }
 
-    @Override
     public void paint(Graphics g) {
         drawMenu((Graphics2D) g);
     }

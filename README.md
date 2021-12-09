@@ -65,10 +65,12 @@ Any function call regarding low-level details of a wall go through this chain: `
 * Wrote tests for the newly implemented Wall subclasses and the WallHandler classes
 * Fix the Model-View coupling in GameFrame, HomeMenu and GameBoard. **_The Plan™_** is as follows:
   
-Use the mediator pattern to handle collaboration between the new classes. Use interfaces to reduce
+Use the genericFrame pattern to handle collaboration between the new classes. Use interfaces to reduce
 coupling and increase extensibility. In the future, we might want to create a new menu or a game with a new look, and using interfaces means we just make a new class with those required features.  
   
 First we find the functionality that can be extracted (method signatures), then write tests for any testable class, then implement the new methods, and inject the new classes into the old code.
+
+ALL state is stored in the Model classes unless necessary.
   
 ##### CLASSES BEFORE
 * GameFrame --> _(Handling switching between HomeMenu and GameBoard)_

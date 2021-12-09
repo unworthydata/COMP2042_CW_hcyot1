@@ -28,7 +28,6 @@ import java.awt.font.FontRenderContext;
 
 
 public class GameBoard extends JComponent implements KeyListener, MouseListener, MouseMotionListener {
-
     private static final String CONTINUE = "Continue";
     private static final String RESTART = "Restart";
     private static final String EXIT = "Exit";
@@ -109,7 +108,7 @@ public class GameBoard extends JComponent implements KeyListener, MouseListener,
                 gameModel.getPlayer().moveLeft();
                 break;
             case KeyEvent.VK_D:
-                gameModel.getPlayer().movRight();
+                gameModel.getPlayer().moveRight();
                 break;
             case KeyEvent.VK_ESCAPE:
                 showPauseMenu = !showPauseMenu;
@@ -153,7 +152,6 @@ public class GameBoard extends JComponent implements KeyListener, MouseListener,
         } else if (exitButtonRect.contains(p)) {
             System.exit(0);
         }
-
     }
 
     @Override
