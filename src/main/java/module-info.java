@@ -3,8 +3,8 @@ module com.game.comp2042_cw_hcyot1 {
     requires javafx.fxml;
     requires java.desktop;
     requires org.jfree.fxgraphics2d;
+    requires javafx.swing;
 
-    opens com.game.comp2042_cw_hcyot1 to javafx.fxml;
     exports com.game.comp2042_cw_hcyot1;
     exports com.game.comp2042_cw_hcyot1.ball;
     opens com.game.comp2042_cw_hcyot1.ball to javafx.fxml;

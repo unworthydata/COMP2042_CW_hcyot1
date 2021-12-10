@@ -20,6 +20,7 @@ public class GameModel {
     private Player player;
 
     private Point startPoint;
+    private GameController controller;
     private int ballCount;
     private boolean ballLost;
 
@@ -28,8 +29,9 @@ public class GameModel {
 
     private boolean isPaused;
 
-    public GameModel(Rectangle drawArea, Point ballPos) {
+    public GameModel(Rectangle drawArea, Point ballPos, GameController controller) {
         this.startPoint = new Point(ballPos);
+        this.controller = controller;
 
         ballCount = 3;
         ballLost = false;
@@ -214,5 +216,6 @@ public class GameModel {
                 gameTimer.stop();
             }
         }
+        controller.repaintView();
     }
 }

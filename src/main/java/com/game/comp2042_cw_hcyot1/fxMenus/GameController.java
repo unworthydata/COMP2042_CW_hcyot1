@@ -1,51 +1,54 @@
 package com.game.comp2042_cw_hcyot1.fxMenus;
 
-import com.game.comp2042_cw_hcyot1.brick.Brick;
-import com.game.comp2042_cw_hcyot1.painter.BasicPainter;
-import com.game.comp2042_cw_hcyot1.painter.Painter;
 import javafx.application.Application;
+import javafx.embed.swing.SwingNode;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import org.jfree.fx.FXGraphics2D;
 
+import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 
 public class GameController extends Application {
+    private static final int DEF_WIDTH = 600;
+    private static final int DEF_HEIGHT = 450;
     private Scene scene;
     private Stage stage;
-    private GameModel gameModel = new GameModel(new Rectangle(0, 0, 600, 450), new Point(300, 430));
+    private GameModel gameModel = new GameModel(new Rectangle(0, 0, 600, 450), new Point(300, 430), this);
+    private GameView gameView = new GameView(gameModel);
 
     @Override
     public void start(Stage stage) throws IOException {
         this.stage = stage;
+        final SwingNode swingNode = new SwingNode();
+        createAndSetSwingContent(swingNode);
 
-        Group root = new Group();
-        Canvas canvas = new Canvas(600, 450);
-        FXGraphics2D g2d = new FXGraphics2D(canvas.getGraphicsContext2D());
-        root.getChildren().add(canvas);
+        StackPane pane = new StackPane();
+        pane.getChildren().add(swingNode);
 
-        scene = new Scene(root);
+        scene = new Scene(pane, DEF_WIDTH, DEF_HEIGHT);
         scene.setOnKeyPressed(this::handleKeyPressed);
         scene.setOnKeyReleased(this::handleKeyReleased);
 
         stage.setScene(scene);
+
         stage.focusedProperty().addListener(event -> onLostFocus());
+        stage.show();
 
-        if (gameModel.isPaused())
-            pause();
-
-        GameView view = new GameView();
-        view.draw(g2d, gameModel);
+//        if (gameModel.isPaused())
+//            pause();
     }
 
     public static void main() {
         launch();
+    }
+
+    private void createAndSetSwingContent(final SwingNode swingNode) {
+        SwingUtilities.invokeLater(() -> swingNode.setContent(gameView));
     }
 
     private void handleKeyPressed(KeyEvent event) {
@@ -107,5 +110,9 @@ public class GameController extends Application {
 
     public Scene getScene() {
         return scene;
+    }
+
+    public void repaintView() {
+        gameView.repaintView();
     }
 }
