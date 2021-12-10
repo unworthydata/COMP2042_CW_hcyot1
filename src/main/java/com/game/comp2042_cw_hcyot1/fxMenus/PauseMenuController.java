@@ -1,5 +1,6 @@
 package com.game.comp2042_cw_hcyot1.fxMenus;
 
+import com.game.comp2042_cw_hcyot1.fxMenus.game.GameController;
 import javafx.event.ActionEvent;
 import javafx.stage.Stage;
 

@@ -8,11 +8,10 @@ import java.io.IOException;
 
 public class DebugConsoleController extends Application {
     private Scene scene;
-
     @Override
     public void start(Stage stage) {
         try {
-            scene.setRoot(Controller.loadFXML("PauseMenu"));
+            scene = new Scene(Controller.loadFXML("DebugConsole"));
         } catch (IOException e) {
             e.printStackTrace();
         }

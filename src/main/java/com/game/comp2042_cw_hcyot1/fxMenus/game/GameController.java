@@ -1,5 +1,7 @@
-package com.game.comp2042_cw_hcyot1.fxMenus;
+package com.game.comp2042_cw_hcyot1.fxMenus.game;
 
+import com.game.comp2042_cw_hcyot1.fxMenus.Controller;
+import com.game.comp2042_cw_hcyot1.fxMenus.PauseMenuController;
 import javafx.application.Application;
 import javafx.embed.swing.SwingNode;
 import javafx.fxml.FXMLLoader;
@@ -38,9 +40,6 @@ public class GameController extends Application {
 
         stage.focusedProperty().addListener(event -> onLostFocus());
         stage.show();
-
-//        if (gameModel.isPaused())
-//            pause();
     }
 
     public static void main() {

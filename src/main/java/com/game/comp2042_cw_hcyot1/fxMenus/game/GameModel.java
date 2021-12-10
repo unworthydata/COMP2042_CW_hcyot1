@@ -1,11 +1,10 @@
-package com.game.comp2042_cw_hcyot1.fxMenus;
+package com.game.comp2042_cw_hcyot1.fxMenus.game;
 
 import com.game.comp2042_cw_hcyot1.Player;
 import com.game.comp2042_cw_hcyot1.ball.Ball;
 import com.game.comp2042_cw_hcyot1.ball.RubberBall;
 import com.game.comp2042_cw_hcyot1.brick.Brick;
 import com.game.comp2042_cw_hcyot1.wall.WallHandler;
-import javafx.animation.Timeline;
 
 import javax.swing.*;
 import java.awt.*;

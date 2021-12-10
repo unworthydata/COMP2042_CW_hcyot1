@@ -1,14 +1,10 @@
-package com.game.comp2042_cw_hcyot1.fxMenus;
+package com.game.comp2042_cw_hcyot1.fxMenus.game;
 
 import com.game.comp2042_cw_hcyot1.brick.Brick;
-import com.game.comp2042_cw_hcyot1.debug.DebugConsole;
 import com.game.comp2042_cw_hcyot1.painter.BasicPainter;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
-import java.awt.font.FontRenderContext;
 
 public class GameView extends JComponent {
     private static final int DEF_WIDTH = 600;
@@ -18,7 +14,7 @@ public class GameView extends JComponent {
 
     private BasicPainter painter;
 
-    private com.game.comp2042_cw_hcyot1.fxMenus.GameModel gameModel;
+    private GameModel gameModel;
 
     public GameView(GameModel gameModel) {
         super();
