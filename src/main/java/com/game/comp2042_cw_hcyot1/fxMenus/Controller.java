@@ -1,6 +1,7 @@
 package com.game.comp2042_cw_hcyot1.fxMenus;
 
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -15,10 +16,19 @@ public class Controller {
         return fxmlLoader.load();
     }
 
-    public static void switchScenes (String dest, ActionEvent event) throws IOException {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(loadFXML(dest), 600, 450);
-        stage.setScene(scene);
-        stage.show();
+    public static void switchScenes (String dest, Event event) {
+        try {
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(loadFXML(dest), 600, 450);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void showDebugConsole() {
+        DebugConsoleController debugConsole = new DebugConsoleController();
+        debugConsole.start(new Stage());
     }
 }

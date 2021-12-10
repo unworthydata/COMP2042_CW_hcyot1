@@ -70,7 +70,7 @@ Any function call regarding low-level details of a wall go through this chain: `
 Recreate HomeMenu and PauseMenu in JavaFX. Then recreate the game viewing in JavaFX
 
 * Recreated HomeMenu in JavaFX. Added empty info screen.
-  
+* Recreate Game in JavaFX  
 Use the mediator pattern to handle collaboration between the new classes. Use interfaces to reduce
 coupling and increase extensibility. In the future, we might want to create a new menu or a game with a new look, and using interfaces means we just make a new class with those required features.  
   

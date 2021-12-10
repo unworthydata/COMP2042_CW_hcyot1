@@ -12,7 +12,7 @@ repositories {
 }
 
 ext {
-    junitVersion = '5.8.1'
+    junitVersion = '5.8.2'
 }
 
 sourceCompatibility = '17'
@@ -29,11 +29,11 @@ application {
 
 javafx {
     version = '17'
-    modules = ['javafx.controls', 'javafx.fxml']
+    modules = ['javafx.controls', 'javafx.fxml','javafx.base', 'javafx.graphics', 'javafx.swing']
 }
 
 dependencies {
-
+    implementation 'org.jfree:org.jfree.fxgraphics2d:2.1.2'
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
 }

@@ -1,6 +1,8 @@
 package com.game.comp2042_cw_hcyot1.fxMenus;
 
 import javafx.event.ActionEvent;
+import javafx.scene.Node;
+import javafx.stage.Stage;
 
 
 import java.io.IOException;
@@ -8,17 +10,19 @@ import java.io.IOException;
 public class HomeMenuController {
 
     public void startGame(ActionEvent event) {
+        try {
+            GameController game = new GameController();
+            game.start((Stage) ((Node) event.getSource()).getScene().getWindow());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showInfo(ActionEvent event) {
+        Controller.switchScenes("Info", event);
     }
 
     public void exit(ActionEvent event) {
         System.exit(0);
-    }
-
-    public void showInfo(ActionEvent event) {
-        try {
-            Controller.switchScenes("Info", event);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }
