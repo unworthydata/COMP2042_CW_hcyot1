@@ -64,7 +64,12 @@ Any function call regarding low-level details of a wall go through this chain: `
 #### 09/12/2021:
 * Wrote tests for the newly implemented Wall subclasses and the WallHandler classes
 * Extract drawing methods from GameBoard to a Painter class
-* Fix the Model-View coupling in GameFrame, HomeMenu and GameBoard. **_The Plan™_** is as follows:
+---
+#### 10/12/2021:
+* Fix the coupling in GameFrame, HomeMenu and GameBoard. **_The Plan™_** is as follows:
+Recreate HomeMenu and PauseMenu in JavaFX. Then recreate the game viewing in JavaFX
+
+* Recreated HomeMenu in JavaFX. Added empty info screen.
   
 Use the mediator pattern to handle collaboration between the new classes. Use interfaces to reduce
 coupling and increase extensibility. In the future, we might want to create a new menu or a game with a new look, and using interfaces means we just make a new class with those required features.  

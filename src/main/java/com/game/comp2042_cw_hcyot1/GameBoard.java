@@ -87,8 +87,7 @@ public class GameBoard extends JComponent implements KeyListener, MouseListener,
 
         painter.drawBall(gameModel.getBall());
 
-        Brick[] bricks = gameModel.getBricks();
-        for (Brick brick : bricks)
+        for (Brick brick : gameModel.getBricks())
             if (!brick.isBroken())
                 painter.drawBrick(brick);
 
