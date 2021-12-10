@@ -59,6 +59,7 @@ public class GameModel {
 
     public void pauseGame() {
         isPaused = true;
+        gameTimer.stop();
     }
 
     public void unPauseGame() {
@@ -216,5 +217,13 @@ public class GameModel {
             }
         }
         controller.repaintView();
+    }
+
+    public void moveRight() {
+        player.moveRight();
+    }
+
+    public void moveLeft() {
+        player.moveLeft();
     }
 }

@@ -1,6 +1,6 @@
 package com.game.comp2042_cw_hcyot1.fxMenus;
 
-import javafx.event.ActionEvent;
+import com.game.comp2042_cw_hcyot1.fxMenus.debug.DebugConsoleController;
 import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -25,10 +25,5 @@ public class Controller {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public static void showDebugConsole() {
-        DebugConsoleController debugConsole = new DebugConsoleController();
-        debugConsole.start(new Stage());
     }
 }

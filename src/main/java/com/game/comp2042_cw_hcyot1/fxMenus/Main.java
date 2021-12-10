@@ -8,17 +8,9 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class Main extends Application {
-    private Scene scene;
-
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(Controller.loadFXML("HomeMenu"), 600, 450);
-
-        scene.setOnKeyPressed(event -> {
-            if (event.getCode() == KeyCode.F1)
-                if (event.isAltDown() && event.isShiftDown())
-                    Controller.showDebugConsole();
-        });
+        Scene scene = new Scene(Controller.loadFXML("HomeMenu"), 600, 450);
 
         stage.setTitle("Brick Destroy");
         stage.setScene(scene);

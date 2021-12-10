@@ -46,8 +46,10 @@ public class WallHandler {
     }
 
     public void nextLevel() {
-        currentWall = walls[wall++];
-        currentWall.resetBrickCount();
+        if (wall + 1 < walls.length) {
+            currentWall = walls[++wall];
+            currentWall.resetBrickCount();
+        }
     }
 
     public boolean hasLevel() {
