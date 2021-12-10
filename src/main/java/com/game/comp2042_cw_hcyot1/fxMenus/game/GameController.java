@@ -119,19 +119,19 @@ public class GameController extends Application {
     }
 
     public void showDebugConsole() {
+        Scene debugScene = null;
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("DebugConsole.fxml"));
+            loader.setControllerFactory(c -> new DebugConsoleController(gameModel));
             Parent root = loader.load();
-            DebugConsoleController debugConsoleController = loader.getController();
-            debugConsoleController.setGameModel(gameModel);
 
-            scene = new Scene(root);
+            debugScene = new Scene(root);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         Stage debugStage = new Stage();
-        debugStage.setScene(scene);
+        debugStage.setScene(debugScene);
         debugStage.show();
     }
 

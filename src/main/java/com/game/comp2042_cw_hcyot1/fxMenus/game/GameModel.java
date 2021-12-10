@@ -226,4 +226,12 @@ public class GameModel {
     public void moveLeft() {
         player.moveLeft();
     }
+
+    public int getSpeedX() {
+        return ball.getSpeedX();
+    }
+
+    public int getSpeedY() {
+        return ball.getSpeedY();
+    }
 }
