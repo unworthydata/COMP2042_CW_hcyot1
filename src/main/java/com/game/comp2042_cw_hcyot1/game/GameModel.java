@@ -206,7 +206,7 @@ public class GameModel {
     private int randomSpeedY() {
         int speedY;
         do {
-            speedY = -rnd.nextInt(3);
+            speedY = -rnd.nextInt(3, 6);
         } while (speedY == 0);
         return speedY;
     }
@@ -214,7 +214,7 @@ public class GameModel {
     private int randomSpeedX() {
         int speedX;
         do {
-            speedX = rnd.nextInt(5) - 2;
+            speedX = rnd.nextInt(3, 7) - 2;
         } while (speedX == 0);
         return speedX;
     }

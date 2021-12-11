@@ -18,17 +18,18 @@ import java.io.IOException;
 public class GameController extends Application {
     private Scene scene;
     private Stage stage;
+    StackPane root;
 
     private GameModel gameModel = new GameModel(new Rectangle(0, 0, 600, 450),
             new Point(300, 430), this);
-    private GameView gameView = new GameView(gameModel);
+    private GameView gameView;
 
     @Override
     public void start(Stage stage) throws IOException {
         this.stage = stage;
 
-        StackPane root = initializeRoot();
-        gameView.drawStatus(root);
+        gameView = new GameView(gameModel);
+        StackPane root = gameView.getRoot();
 
         scene = new Scene(root, Controller.DEF_WIDTH, Controller.DEF_HEIGHT);
         scene.setOnKeyPressed(this::handleKeyPressed);
@@ -47,6 +48,7 @@ public class GameController extends Application {
 
 //      sometimes the game gets stuck in paused mode, this ensures that when the game starts, it is unpaused
         gameModel.unPauseGame();
+        gameView.displayPaused();
     }
 
     public void onLostFocus() {
@@ -100,16 +102,6 @@ public class GameController extends Application {
         }
     }
 
-    private StackPane initializeRoot() {
-        final SwingNode swingNode = new SwingNode();
-        SwingUtilities.invokeLater(() -> swingNode.setContent(gameView));
-
-        StackPane root = new StackPane();
-        root.getChildren().add(swingNode);
-
-        return root;
-    }
-
     private void handleKeyPressed(KeyEvent event) {
         switch (event.getCode()) {
             case A:
@@ -123,6 +115,7 @@ public class GameController extends Application {
                     gameModel.unPauseGame();
                 } else {
                     gameModel.pauseGame();
+                    gameView.displayPaused();
                     showPauseMenu();
                 }
                 break;
@@ -132,8 +125,10 @@ public class GameController extends Application {
                         gameModel.stopGame();
                         gameView.displayPaused();
                     }
-                    else
+                    else {
                         gameModel.startGame();
+                        gameView.displayUnpaused();
+                    }
                 break;
             case F1:
                 if (event.isAltDown() && event.isShiftDown())

@@ -3,7 +3,11 @@ package com.game.comp2042_cw_hcyot1.game;
 import com.game.comp2042_cw_hcyot1.brick.Brick;
 import com.game.comp2042_cw_hcyot1.painter.BasicPainter;
 import javafx.application.Platform;
+import javafx.embed.swing.SwingNode;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.StackPane;
@@ -25,13 +29,24 @@ public class GameView extends JComponent {
 
     private Graphics2D graphics2D;
 
+    private StackPane root = new StackPane();
+    ImageView paused = new ImageView(new Image("file:src\\main\\resources\\com\\game\\comp2042_cw_hcyot1\\game\\pause.png"));
+
     private Label statusLabel;
     private Label highScoreStatus;
 
     public GameView(GameModel gameModel) {
         super();
-        this.initialize();
         this.gameModel = gameModel;
+
+        final SwingNode swingNode = new SwingNode();
+        SwingUtilities.invokeLater(() -> swingNode.setContent(this));
+
+        root.getChildren().add(swingNode);
+        drawStatus();
+
+        paused.setPreserveRatio(true);
+        paused.setFitHeight(140);
     }
 
     @Override
@@ -55,13 +70,7 @@ public class GameView extends JComponent {
         repaint();
     }
 
-    private void initialize() {
-        this.setPreferredSize(new Dimension(DEF_WIDTH, DEF_HEIGHT));
-        this.setFocusable(true);
-        this.requestFocusInWindow();
-    }
-
-    public void drawStatus(StackPane root) {
+    public void drawStatus() {
         statusLabel = new Label("");
         statusLabel.setFont(new Font("Consolas", 15));
 
@@ -86,6 +95,20 @@ public class GameView extends JComponent {
     }
 
     public void displayPaused() {
+        try {
+            root.getChildren().add(paused);
+        } catch (Exception e) {
+        }
+    }
 
+    public StackPane getRoot() {
+        return root;
+    }
+
+    public void displayUnpaused() {
+        try {
+            root.getChildren().remove(paused);
+        } catch (Exception e) {
+        }
     }
 }

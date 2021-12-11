@@ -22,19 +22,19 @@
             <Font size="20.0" />
          </font>
       </Button>
-      <Label layoutX="141.0" layoutY="364.0" text="Set ball X-axis Speed" />
-      <Label layoutX="356.0" layoutY="364.0" text="Set ball Y-axis Speed" />
-      <Label layoutX="191.0" layoutY="271.0" text="X" fx:id="xSliderValue">
+      <Label layoutX="114.0" layoutY="364.0" text="Set ball X-axis Speed" />
+      <Label layoutX="378.0" layoutY="364.0" text="Set ball Y-axis Speed" />
+      <Label layoutX="164.0" layoutY="271.0" text="X" fx:id="xSliderValue">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label fx:id="ySliderValue" layoutX="406.0" layoutY="271.0" text="Y">
+      <Label fx:id="ySliderValue" layoutX="428.0" layoutY="271.0" text="Y">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Slider blockIncrement="1.0" layoutX="101.0" layoutY="322.0" majorTickUnit="1.0" max="3.0" min="1.0" minorTickCount="0" prefHeight="27.0" prefWidth="181.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="1.0" fx:id="xSlider" />
-      <Slider fx:id="ySlider" blockIncrement="1.0" layoutX="326.0" layoutY="322.0" majorTickUnit="1.0" max="3.0" min="1.0" minorTickCount="0" prefHeight="27.0" prefWidth="181.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="1.0" />
+      <Slider blockIncrement="1.0" layoutX="57.0" layoutY="322.0" majorTickUnit="1.0" max="6.0" min="1.0" minorTickCount="0" prefHeight="38.0" prefWidth="225.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="1.0" fx:id="xSlider" />
+      <Slider fx:id="ySlider" blockIncrement="1.0" layoutX="320.0" layoutY="322.0" majorTickUnit="1.0" max="6.0" min="1.0" minorTickCount="0" prefHeight="38.0" prefWidth="225.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="1.0" />
    </children>
 </AnchorPane>
