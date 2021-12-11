@@ -209,7 +209,7 @@ public class GameModel {
     private int randomSpeedY() {
         int speedY;
         do {
-            speedY = -rnd.nextInt(3, 6);
+            speedY = -rnd.nextInt(4, 6);
         } while (speedY == 0);
         return speedY;
     }
@@ -274,8 +274,8 @@ public class GameModel {
                 color = Color.MEDIUMAQUAMARINE;
                 gameTimer.stop();
                 ballPositionReset();
-                wallReset();
                 nextLevel();
+                wallReset();
             } else {
                 message = "ALL WALLS DESTROYED";
                 color = Color.DARKGREEN;

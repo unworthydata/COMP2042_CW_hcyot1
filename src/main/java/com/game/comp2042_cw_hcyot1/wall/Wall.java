@@ -5,7 +5,7 @@ import com.game.comp2042_cw_hcyot1.brick.Brick;
 public abstract class Wall {
     protected final int INIT_BRICK_COUNT = 30;
     protected final int INIT_LINE_COUNT = 3;
-    protected final double BRICK_DIMENSION_RATIO = 6 /2;
+    protected final double BRICK_DIMENSION_RATIO = 6 / 2;
 
     protected int brickCount = INIT_BRICK_COUNT;
     protected int lineCount = INIT_LINE_COUNT;

@@ -22,6 +22,7 @@ public class HollowWall extends Wall {
           if brickCount is not divisible by line count,brickCount is adjusted to the biggest
           multiple of lineCount smaller then brickCount
          */
+
         brickCount -= brickCount % lineCount;
 
         int brickOnLine = brickCount / lineCount;
@@ -51,7 +52,11 @@ public class HollowWall extends Wall {
             p.setLocation(x, y);
 
             boolean b = ((line % 2 == 0 && i % 2 == 0) || (line % 2 != 0 && posX > centerLeft && posX <= centerRight));
-            tmp[i] = b ? BrickFactory.makeBrick(p, brickSize, type) : null;
+            if (b) {
+                tmp[i] = null;
+                brickCount--;
+            } else
+                tmp[i] = BrickFactory.makeBrick(p, brickSize, type);
         }
 
         for (double y = brickHgt; i < tmp.length; i++, y += 2 * brickHgt) {
@@ -59,6 +64,7 @@ public class HollowWall extends Wall {
             p.setLocation(x, y);
             tmp[i] = BrickFactory.makeBrick(p, brickSize, type);
         }
+
         return tmp;
     }
 }
