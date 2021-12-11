@@ -79,5 +79,9 @@ Recreate HomeMenu and PauseMenu in JavaFX. Then recreate the game viewing in Jav
 ---
 #### 11/12/2021:
 * Removed old classes and moved to the new MVC and JavaFX classes
+* Made windows not resizable, it messed with the look of the game
+* Restructed classes into logical packages
+  * Moved DebugConsole and PauseMenu related files into the same package as game, as they only make sense in a game context.
+* Filled in info screen
 
 Use interfaces to reduce coupling and increase extensibility. In the future, we might want to create a new menu or a game with a new look, and using interfaces means we just make a new class with those required features.  
