@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class Controller {
+public abstract class Controller {
     public static final int DEF_WIDTH = 600;
     public static final int DEF_HEIGHT = 450;
 

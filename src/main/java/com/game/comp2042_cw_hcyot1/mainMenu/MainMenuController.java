@@ -22,7 +22,7 @@ public class MainMenuController {
     }
 
     public void showInfo(ActionEvent event) {
-        Controller.switchScenes("Info", event);
+        Controller.switchScenes("mainMenu/Info", event);
     }
 
     public void exit(ActionEvent event) {

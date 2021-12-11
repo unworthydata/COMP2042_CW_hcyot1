@@ -26,7 +26,7 @@ public class PauseMenuController {
     }
 
     public void exitToMainMenu(ActionEvent event) {
-        Controller.switchScenes("HomeMenu", event);
+        Controller.switchScenes("mainMenu/MainMenu", event);
     }
 
     //    private void handleMouseClicked(MouseEvent mouseEvent) {

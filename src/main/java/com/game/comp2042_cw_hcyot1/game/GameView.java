@@ -59,8 +59,7 @@ public class GameView extends JComponent {
     }
 
     public void drawStatus(StackPane parent) {
-        statusLabel = new Label("STATUS");
-        statusLabel.setTextFill(javafx.scene.paint.Color.RED);
+        statusLabel = new Label("");
         statusLabel.setFont(new Font("Consolas", 15));
         parent.getChildren().add(statusLabel);
     }

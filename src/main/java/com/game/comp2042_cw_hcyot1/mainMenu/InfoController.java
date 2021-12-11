@@ -5,6 +5,6 @@ import javafx.event.ActionEvent;
 
 public class InfoController {
     public void goBack(ActionEvent event) {
-        Controller.switchScenes("HomeMenu", event);
+        Controller.switchScenes("mainMenu/MainMenu", event);
     }
 }
