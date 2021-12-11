@@ -27,6 +27,6 @@ public class PauseMenuController {
 
     public void exitToMainMenu(ActionEvent event) {
         controller.saveScores();
-        Controller.switchScenes("mainMenu/MainMenu", event);
+        Controller.switchScenes("MainMenu", event);
     }
 }
