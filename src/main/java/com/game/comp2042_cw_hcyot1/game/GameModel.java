@@ -259,7 +259,9 @@ public class GameModel {
             }
         }
 
-        scoreHandler.checkAndSetHighscore(wallHandler.currentLevel(), score);
+        if (scoreHandler.checkAndSetHighscore(wallHandler.currentLevel(), score)) {
+            controller.displayNewHighScore(score);
+        }
         controller.updateStatus(message, color);
         controller.repaintView();
     }

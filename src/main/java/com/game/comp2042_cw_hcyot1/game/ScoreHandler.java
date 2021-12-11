@@ -33,12 +33,16 @@ public class ScoreHandler {
         return tempScores;
     }
 
-    public void checkAndSetHighscore(int level, int newScore) {
+    public boolean checkAndSetHighscore(int level, int newScore) {
         // if this runs for the first time currentHighscore will be 0
         int currentHighscore = highscores.getOrDefault(level, 0);
 
-        if (newScore > currentHighscore)
+        if (newScore > currentHighscore) {
             highscores.put(level, newScore);
+            return true;
+        }
+
+        return false;
     }
 
     public void saveScores() {

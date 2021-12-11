@@ -4,11 +4,14 @@ import com.game.comp2042_cw_hcyot1.brick.Brick;
 import com.game.comp2042_cw_hcyot1.painter.BasicPainter;
 import javafx.application.Platform;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
 import javax.swing.*;
+import javax.swing.border.StrokeBorder;
 import java.awt.*;
 
 public class GameView extends JComponent {
@@ -23,6 +26,7 @@ public class GameView extends JComponent {
     private Graphics2D graphics2D;
 
     private Label statusLabel;
+    private Label highScoreStatus;
 
     public GameView(GameModel gameModel) {
         super();
@@ -61,7 +65,14 @@ public class GameView extends JComponent {
     public void drawStatus(StackPane parent) {
         statusLabel = new Label("");
         statusLabel.setFont(new Font("Consolas", 15));
+
+        highScoreStatus = new Label("");
+        highScoreStatus.setFont(new Font("Consolas", 20));
+        highScoreStatus.setTextFill(Color.DARKGOLDENROD);
+        highScoreStatus.setTranslateY(25);
+
         parent.getChildren().add(statusLabel);
+        parent.getChildren().add(highScoreStatus);
     }
 
     public void updateStatus(String string) {
@@ -73,5 +84,9 @@ public class GameView extends JComponent {
             statusLabel.setText(string);
             statusLabel.setTextFill(color);
         });
+    }
+
+    public void displayNewHighScore(int newHighScore) {
+        Platform.runLater(() -> highScoreStatus.setText("NEW HIGH SCORE: " + newHighScore));
     }
 }

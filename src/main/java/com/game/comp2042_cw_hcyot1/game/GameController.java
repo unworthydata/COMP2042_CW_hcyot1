@@ -153,4 +153,8 @@ public class GameController extends Application {
     public void saveScores() {
         gameModel.saveScores();
     }
+
+    public void displayNewHighScore(int newHighScore) {
+        gameView.displayNewHighScore(newHighScore);
+    }
 }
