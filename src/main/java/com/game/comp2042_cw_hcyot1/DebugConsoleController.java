@@ -1,4 +1,4 @@
-package com.game.comp2042_cw_hcyot1.game;
+package com.game.comp2042_cw_hcyot1;
 
 import com.game.comp2042_cw_hcyot1.game.GameModel;
 import javafx.event.ActionEvent;

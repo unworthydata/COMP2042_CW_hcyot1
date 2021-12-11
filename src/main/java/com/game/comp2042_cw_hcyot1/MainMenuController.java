@@ -1,4 +1,4 @@
-package com.game.comp2042_cw_hcyot1.mainMenu;
+package com.game.comp2042_cw_hcyot1;
 
 import com.game.comp2042_cw_hcyot1.Controller;
 import com.game.comp2042_cw_hcyot1.LeaderboardController;
@@ -26,7 +26,7 @@ public class MainMenuController {
     }
 
     public void showInfo(ActionEvent event) {
-        Controller.switchScenes("mainMenu/Info", event);
+        Controller.switchScenes("Info", event);
     }
 
     public void exit(ActionEvent event) {

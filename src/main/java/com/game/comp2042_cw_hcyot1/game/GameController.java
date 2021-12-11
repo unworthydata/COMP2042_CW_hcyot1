@@ -1,24 +1,19 @@
 package com.game.comp2042_cw_hcyot1.game;
 
 import com.game.comp2042_cw_hcyot1.Controller;
-import com.game.comp2042_cw_hcyot1.LeaderboardController;
+import com.game.comp2042_cw_hcyot1.DebugConsoleController;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.embed.swing.SwingNode;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
-import java.util.LinkedHashMap;
 
 public class GameController extends Application {
     private Scene scene;
@@ -133,8 +128,10 @@ public class GameController extends Application {
                 break;
             case SPACE:
                 if (!gameModel.isPaused())
-                    if (gameModel.isRunning())
+                    if (gameModel.isRunning()) {
                         gameModel.stopGame();
+                        gameView.displayPaused();
+                    }
                     else
                         gameModel.startGame();
                 break;

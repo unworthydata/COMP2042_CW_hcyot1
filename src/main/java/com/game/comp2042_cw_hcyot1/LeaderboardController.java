@@ -25,6 +25,6 @@ public class LeaderboardController implements Initializable {
     }
 
     public void goBack(ActionEvent event) {
-        Controller.switchScenes("mainMenu/MainMenu", event);
+        Controller.switchScenes("MainMenu", event);
     }
 }

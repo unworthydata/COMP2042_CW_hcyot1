@@ -31,7 +31,6 @@ public class GameView extends JComponent {
     public GameView(GameModel gameModel) {
         super();
         this.initialize();
-
         this.gameModel = gameModel;
     }
 
@@ -62,7 +61,7 @@ public class GameView extends JComponent {
         this.requestFocusInWindow();
     }
 
-    public void drawStatus(StackPane parent) {
+    public void drawStatus(StackPane root) {
         statusLabel = new Label("");
         statusLabel.setFont(new Font("Consolas", 15));
 
@@ -71,12 +70,8 @@ public class GameView extends JComponent {
         highScoreStatus.setTextFill(Color.DARKGOLDENROD);
         highScoreStatus.setTranslateY(25);
 
-        parent.getChildren().add(statusLabel);
-        parent.getChildren().add(highScoreStatus);
-    }
-
-    public void updateStatus(String string) {
-        Platform.runLater(() -> statusLabel.setText(string));
+        root.getChildren().add(statusLabel);
+        root.getChildren().add(highScoreStatus);
     }
 
     public void updateStatus(String string, Color color) {
@@ -88,5 +83,9 @@ public class GameView extends JComponent {
 
     public void displayNewHighScore(int newHighScore) {
         Platform.runLater(() -> highScoreStatus.setText("NEW HIGH SCORE: " + newHighScore));
+    }
+
+    public void displayPaused() {
+
     }
 }

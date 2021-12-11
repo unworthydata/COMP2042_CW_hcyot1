@@ -1,18 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Point3D?>
+<?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.game.comp2042_cw_hcyot1.game.PauseMenuController">
+<AnchorPane prefHeight="450.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.game.comp2042_cw_hcyot1.game.PauseMenuController">
    <children>
-      <Label alignment="CENTER" layoutY="37.0" prefHeight="17.0" prefWidth="601.0" text="GAME PAUSED">
+      <ImageView fitHeight="450.0" fitWidth="601.0" pickOnBounds="true">
+         <image>
+            <Image url="@../alt_bg.png" />
+         </image>
+         <viewport>
+            <Rectangle2D />
+         </viewport>
+         <rotationAxis>
+            <Point3D />
+         </rotationAxis>
+      </ImageView>
+      <Label alignment="CENTER" layoutY="68.0" prefHeight="17.0" prefWidth="601.0" text="GAME PAUSED" textFill="WHITE">
          <font>
-            <Font name="System Bold" size="24.0" />
+            <Font name="System Bold" size="36.0" />
          </font></Label>
-      <Button layoutX="223.0" layoutY="165.0" mnemonicParsing="false" onAction="#resume" prefHeight="35.0" prefWidth="155.0" text="Resume" />
+      <Button layoutX="223.0" layoutY="170.0" mnemonicParsing="false" onAction="#resume" prefHeight="35.0" prefWidth="155.0" text="Resume" />
       <Button layoutX="223.0" layoutY="225.0" mnemonicParsing="false" onAction="#restart" prefHeight="35.0" prefWidth="155.0" text="Restart game" />
-      <Button layoutX="223.0" layoutY="342.0" mnemonicParsing="false" onAction="#exitToMainMenu" prefHeight="35.0" prefWidth="155.0" text="Exit to Main Menu" />
+      <Button layoutX="223.0" layoutY="381.0" mnemonicParsing="false" onAction="#exitToMainMenu" prefHeight="35.0" prefWidth="155.0" text="Exit to Main Menu" />
    </children>
 </AnchorPane>

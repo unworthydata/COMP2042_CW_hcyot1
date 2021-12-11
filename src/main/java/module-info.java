@@ -16,6 +16,4 @@ module com.game.comp2042_cw_hcyot1 {
 
     exports com.game.comp2042_cw_hcyot1.game;
     opens com.game.comp2042_cw_hcyot1.game to javafx.fxml;
-
-    exports com.game.comp2042_cw_hcyot1.mainMenu;
 }

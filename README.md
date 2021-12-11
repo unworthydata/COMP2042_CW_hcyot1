@@ -83,5 +83,11 @@ Recreate HomeMenu and PauseMenu in JavaFX. Then recreate the game viewing in Jav
 * Restructed classes into logical packages
   * Moved DebugConsole and PauseMenu related files into the same package as game, as they only make sense in a game context.
 * Filled in info screen
+* Styled main menu
+* Added Leaderboard which contains high scores
+  * High scores are stored in highscores.csv
+  * Permanently stored in the file, so if you reload the game, you still retain the high scores
+  * Reads and writes
+  * If you get a new high score in game, you are shown a new high score message
 
 Use interfaces to reduce coupling and increase extensibility. In the future, we might want to create a new menu or a game with a new look, and using interfaces means we just make a new class with those required features.  

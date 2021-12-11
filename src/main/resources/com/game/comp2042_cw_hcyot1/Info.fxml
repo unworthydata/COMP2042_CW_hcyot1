@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="450.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.game.comp2042_cw_hcyot1.InfoController">
+   <children>
+      <ImageView fitHeight="450.0" fitWidth="601.0" pickOnBounds="true">
+         <image>
+            <Image url="@alt_bg.png" />
+         </image>
+      </ImageView>
+      <Label alignment="CENTER" layoutX="1.0" layoutY="114.0" prefHeight="27.0" prefWidth="600.0" text="Use A and D to move left and right respectively." textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
+      <Button layoutX="271.0" layoutY="395.0" mnemonicParsing="false" onAction="#goBack" text="Go Back" />
+      <Label alignment="CENTER" layoutY="43.0" prefHeight="53.0" prefWidth="586.0" text="Controls:" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="36.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="1.0" layoutY="148.0" prefHeight="27.0" prefWidth="600.0" text="Hit Alt+Shift+F1 to bring up the debug console" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
+      <Label alignment="CENTER" layoutX="1.0" layoutY="301.0" prefHeight="17.0" prefWidth="600.0" text="Made by Filipo. Upgraded by Omar Ismail" textFill="WHITE" />
+      <Label alignment="CENTER" layoutX="1.0" layoutY="183.0" prefHeight="27.0" prefWidth="600.0" text="Hit ESC to bring up the menu" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
+      <Label alignment="CENTER" layoutX="1.0" layoutY="325.0" prefHeight="17.0" prefWidth="600.0" text="© 2021 No copyright. Open Source" textFill="WHITE" />
+   </children>
+</AnchorPane>

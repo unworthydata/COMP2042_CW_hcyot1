@@ -11,7 +11,7 @@ import java.io.IOException;
 public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        Scene scene = new Scene(Controller.loadFXML("mainMenu/MainMenu"), Controller.DEF_WIDTH, Controller.DEF_HEIGHT);
+        Scene scene = new Scene(Controller.loadFXML("MainMenu"), Controller.DEF_WIDTH, Controller.DEF_HEIGHT);
 
         stage.setTitle("Brick Destroy");
         stage.setResizable(false);

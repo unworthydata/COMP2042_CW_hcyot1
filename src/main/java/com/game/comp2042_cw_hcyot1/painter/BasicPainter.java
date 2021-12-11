@@ -3,6 +3,7 @@ package com.game.comp2042_cw_hcyot1.painter;
 import com.game.comp2042_cw_hcyot1.Player;
 import com.game.comp2042_cw_hcyot1.ball.Ball;
 import com.game.comp2042_cw_hcyot1.brick.Brick;
+import javafx.scene.image.Image;
 
 import java.awt.*;
 

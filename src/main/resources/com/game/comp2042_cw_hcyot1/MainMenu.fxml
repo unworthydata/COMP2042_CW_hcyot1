@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="450.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.game.comp2042_cw_hcyot1.mainMenu.MainMenuController">
+<AnchorPane prefHeight="450.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.game.comp2042_cw_hcyot1.MainMenuController">
    <children>
       <ImageView fitHeight="471.0" fitWidth="601.0" pickOnBounds="true">
          <image>
