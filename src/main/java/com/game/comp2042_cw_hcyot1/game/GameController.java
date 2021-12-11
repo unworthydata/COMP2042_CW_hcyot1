@@ -1,8 +1,8 @@
-package com.game.comp2042_cw_hcyot1.fxMenus.game;
+package com.game.comp2042_cw_hcyot1.game;
 
-import com.game.comp2042_cw_hcyot1.fxMenus.Controller;
-import com.game.comp2042_cw_hcyot1.fxMenus.PauseMenuController;
-import com.game.comp2042_cw_hcyot1.fxMenus.debug.DebugConsoleController;
+import com.game.comp2042_cw_hcyot1.Controller;
+import com.game.comp2042_cw_hcyot1.PauseMenuController;
+import com.game.comp2042_cw_hcyot1.debug.DebugConsoleController;
 import javafx.application.Application;
 import javafx.embed.swing.SwingNode;
 import javafx.fxml.FXMLLoader;
@@ -82,7 +82,7 @@ public class GameController extends Application {
         return scene;
     }
 
-    public void printMessage(String string, Color color) {
+    public void updateStatus(String string, Color color) {
         gameView.updateStatus(string, color);
     }
 

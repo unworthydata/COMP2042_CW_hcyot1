@@ -1,17 +1,12 @@
-package com.game.comp2042_cw_hcyot1.fxMenus.debug;
+package com.game.comp2042_cw_hcyot1.debug;
 
-import com.game.comp2042_cw_hcyot1.fxMenus.Controller;
-import com.game.comp2042_cw_hcyot1.fxMenus.game.GameModel;
+import com.game.comp2042_cw_hcyot1.game.GameModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
-import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 

@@ -1,27 +1,13 @@
-/*
- *  Brick Destroy - A simple Arcade video game
- *   Copyright (C) 2017  Filippo Ranza
- *
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation, either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-package com.game.comp2042_cw_hcyot1;
+package com.game.comp2042_cw_hcyot1.game;
 
+import com.game.comp2042_cw_hcyot1.Player;
 import com.game.comp2042_cw_hcyot1.ball.Ball;
 import com.game.comp2042_cw_hcyot1.ball.RubberBall;
-import com.game.comp2042_cw_hcyot1.brick.*;
+import com.game.comp2042_cw_hcyot1.brick.Brick;
 import com.game.comp2042_cw_hcyot1.wall.WallHandler;
+import javafx.scene.paint.Color;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Point2D;
 import java.util.Random;
@@ -34,13 +20,18 @@ public class GameModel {
     private Player player;
 
     private Point startPoint;
+    private GameController controller;
     private int ballCount;
     private boolean ballLost;
 
     private WallHandler wallHandler;
+    private Timer gameTimer;
 
-    public GameModel(Rectangle drawArea, Point ballPos) {
+    private boolean isPaused;
+
+    public GameModel(Rectangle drawArea, Point ballPos, GameController controller) {
         this.startPoint = new Point(ballPos);
+        this.controller = controller;
 
         ballCount = 3;
         ballLost = false;
@@ -56,15 +47,24 @@ public class GameModel {
         area = drawArea;
 
         wallHandler = new WallHandler(drawArea.getWidth());
-    }
 
-    private void makeBall(Point2D ballPos) {
-        ball = new RubberBall(ballPos);
+        isPaused = false;
+
+        gameTimer = new Timer(10, e -> initializeTimer());
     }
 
     public void move() {
         player.move();
         ball.move();
+    }
+
+    public void pauseGame() {
+        isPaused = true;
+        gameTimer.stop();
+    }
+
+    public void unPauseGame() {
+        isPaused = false;
     }
 
     public void findImpacts() {
@@ -83,6 +83,14 @@ public class GameModel {
             ballCount--;
             ballLost = true;
         }
+    }
+
+    public void stopGame() {
+        gameTimer.stop();
+    }
+
+    private void makeBall(Point2D ballPos) {
+        ball = new RubberBall(ballPos);
     }
 
     public int getBallCount() {
@@ -133,6 +141,59 @@ public class GameModel {
         return player;
     }
 
+    public Brick[] getBricks() {
+        return wallHandler.getBricks();
+    }
+
+    public boolean isPaused() {
+        return isPaused;
+    }
+
+    public boolean isRunning() {
+        return gameTimer.isRunning();
+    }
+
+    public void startGame() {
+        gameTimer.start();
+    }
+
+    public boolean isDone() {
+        return wallHandler.isDone();
+    }
+
+    public boolean hasLevel() {
+        return wallHandler.hasLevel();
+    }
+
+    public int getBrickCount() {
+        return wallHandler.getBrickCount();
+    }
+
+    public void stopPlayer() {
+        player.stop();
+    }
+
+    public void moveRight() {
+        player.moveRight();
+    }
+
+    public void moveLeft() {
+        player.moveLeft();
+    }
+
+    public int getSpeedX() {
+        return ball.getSpeedX();
+    }
+
+    public int getSpeedY() {
+        return ball.getSpeedY();
+    }
+
+    public void restart() {
+        wallReset();
+        ballReset();
+    }
+
     private int randomSpeedY() {
         int speedY;
         do {
@@ -158,19 +219,37 @@ public class GameModel {
         return ((p.getX() < area.getX()) || (p.getX() > (area.getX() + area.getWidth())));
     }
 
-    public Brick[] getBricks() {
-        return wallHandler.getBricks();
-    }
+    private void initializeTimer() {
+        String message = "Bricks: " + getBrickCount() +
+                "   |   Balls left: " + getBallCount();
+        Color color = Color.DARKBLUE;
 
-    public boolean isDone() {
-        return wallHandler.isDone();
-    }
+        this.move();
+        this.findImpacts();
+        if (isBallLost()) {
+            if (ballEnd()) {
+                wallReset();
+                message = "Game Over";
+                color = Color.DARKRED;
+            }
+            ballReset();
+            gameTimer.stop();
+        } else if (isDone()) {
+            if (hasLevel()) {
+                message = "Go to Next Level";
+                color = Color.MEDIUMAQUAMARINE;
+                gameTimer.stop();
+                ballReset();
+                wallReset();
+                nextLevel();
+            } else {
+                message = "ALL WALLS DESTROYED";
+                color = Color.DARKGREEN;
+                gameTimer.stop();
+            }
+        }
 
-    public boolean hasLevel() {
-        return wallHandler.hasLevel();
-    }
-
-    public int getBrickCount() {
-        return wallHandler.getBrickCount();
+        controller.updateStatus(message, color);
+        controller.repaintView();
     }
 }

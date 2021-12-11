@@ -1,4 +1,4 @@
-package com.game.comp2042_cw_hcyot1.fxMenus.game;
+package com.game.comp2042_cw_hcyot1.game;
 
 import com.game.comp2042_cw_hcyot1.brick.Brick;
 import com.game.comp2042_cw_hcyot1.painter.BasicPainter;

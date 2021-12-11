@@ -1,6 +1,5 @@
-package com.game.comp2042_cw_hcyot1.fxMenus;
+package com.game.comp2042_cw_hcyot1;
 
-import com.game.comp2042_cw_hcyot1.fxMenus.debug.DebugConsoleController;
 import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
