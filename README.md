@@ -89,5 +89,11 @@ Recreate HomeMenu and PauseMenu in JavaFX. Then recreate the game viewing in Jav
   * Permanently stored in the file, so if you reload the game, you still retain the high scores
   * Reads and writes
   * If you get a new high score in game, you are shown a new high score message
+* Game now shows a big pause image when the game is paused (hit space bar)
+* Ball changes color when it hits bricks or the player
+* Made the ball bigger so it is clearer
+* Added new wall type (Hollow walls)
+* Added new Brick type (Moss Brick)
+* Made it so levels are made using lists, which is much more flexible when adding or removing levels
 
 Use interfaces to reduce coupling and increase extensibility. In the future, we might want to create a new menu or a game with a new look, and using interfaces means we just make a new class with those required features.  

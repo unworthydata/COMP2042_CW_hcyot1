@@ -120,6 +120,10 @@ abstract public class Ball {
         speedY = s;
     }
 
+    public void setInnerColor(Color color) {
+        innerColor = color;
+    }
+
     protected abstract Shape makeBall(Point2D center, int radius);
 
     private void setPoints(double width, double height) {

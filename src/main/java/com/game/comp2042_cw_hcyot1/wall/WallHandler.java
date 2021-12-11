@@ -7,11 +7,11 @@ import com.game.comp2042_cw_hcyot1.brick.Crack;
 import com.game.comp2042_cw_hcyot1.game.ScoreHandler;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 
 public class WallHandler {
-    private final int WALLS_COUNT = 4;
-
     private Wall[] walls;
     private Wall currentWall;
     private double drawAreaWidth;
@@ -33,12 +33,15 @@ public class WallHandler {
     }
 
     private Wall[] makeWalls() {
-        Wall[] tmp = new Wall[WALLS_COUNT];
-        tmp[0] = new SingleWall(drawAreaWidth, BrickType.CLAY);
-        tmp[1] = new CheckerboardWall(drawAreaWidth, BrickType.CLAY, BrickType.CEMENT);
-        tmp[2] = new CheckerboardWall(drawAreaWidth, BrickType.CLAY, BrickType.STEEL);
-        tmp[3] = new CheckerboardWall(drawAreaWidth, BrickType.STEEL, BrickType.CEMENT);
-        return tmp;
+        List<Wall> wallList = new ArrayList<>();
+        wallList.add(new HollowWall(drawAreaWidth, BrickType.MOSS));
+        wallList.add(new SingleWall(drawAreaWidth, BrickType.MOSS));
+        wallList.add(new SingleWall(drawAreaWidth, BrickType.CLAY));
+        wallList.add(new CheckerboardWall(drawAreaWidth, BrickType.CLAY, BrickType.CEMENT));
+        wallList.add(new CheckerboardWall(drawAreaWidth, BrickType.CLAY, BrickType.STEEL));
+        wallList.add(new CheckerboardWall(drawAreaWidth, BrickType.STEEL, BrickType.CEMENT));
+
+        return wallList.toArray(new Wall[0]);
     }
 
     public void wallReset() {
@@ -58,29 +61,6 @@ public class WallHandler {
 
     public boolean hasLevel() {
         return wall < walls.length;
-    }
-
-    public boolean impactWall(Ball ball) {
-        for (Brick brick : currentWall.getBricks()) {
-            switch (brick.findImpact(ball)) {
-                //Vertical Impact
-                case Brick.UP_IMPACT:
-                    ball.reverseY();
-                    return brick.setImpact(ball.getDown(), Crack.UP);
-                case Brick.DOWN_IMPACT:
-                    ball.reverseY();
-                    return brick.setImpact(ball.getUp(), Crack.DOWN);
-
-                //Horizontal Impact
-                case Brick.LEFT_IMPACT:
-                    ball.reverseX();
-                    return brick.setImpact(ball.getRight(), Crack.RIGHT);
-                case Brick.RIGHT_IMPACT:
-                    ball.reverseX();
-                    return brick.setImpact(ball.getLeft(), Crack.LEFT);
-            }
-        }
-        return false;
     }
 
     public Brick[] getBricks() {

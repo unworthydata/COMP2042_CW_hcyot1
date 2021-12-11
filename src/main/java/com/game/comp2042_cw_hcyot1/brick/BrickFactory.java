@@ -8,6 +8,7 @@ public class BrickFactory {
             case CLAY -> new ClayBrick(point, size);
             case STEEL -> new SteelBrick(point, size);
             case CEMENT -> new CementBrick(point, size);
+            case MOSS -> new MossBrick(point, size);
             default -> throw new IllegalArgumentException(String.format("Unknown Type:%s\n", type));
         };
     }

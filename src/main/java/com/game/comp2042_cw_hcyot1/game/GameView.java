@@ -58,7 +58,7 @@ public class GameView extends JComponent {
         painter.drawBall(gameModel.getBall());
 
         for (Brick brick : gameModel.getBricks())
-            if (!brick.isBroken())
+            if (brick != null && !brick.isBroken())
                 painter.drawBrick(brick);
 
         painter.drawPlayer(gameModel.getPlayer());

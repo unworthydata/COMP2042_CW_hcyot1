@@ -4,6 +4,7 @@ import com.game.comp2042_cw_hcyot1.Player;
 import com.game.comp2042_cw_hcyot1.ball.Ball;
 import com.game.comp2042_cw_hcyot1.ball.RubberBall;
 import com.game.comp2042_cw_hcyot1.brick.Brick;
+import com.game.comp2042_cw_hcyot1.brick.Crack;
 import com.game.comp2042_cw_hcyot1.wall.WallHandler;
 import javafx.scene.paint.Color;
 
@@ -74,12 +75,14 @@ public class GameModel {
     public void findImpacts() {
         if (player.impact(ball)) {
             ball.reverseY();
+            randomizeBallColors();
         } else if (impactWall()) {
             /*for efficiency reverse is done into method impactWall
              * because for every brick program checks for horizontal and vertical impacts
              */
             wallHandler.breakBrick();
             score++;
+            randomizeBallColors();
         } else if (impactBorder()) {
             ball.reverseX();
         } else if (ball.getPosition().getY() < area.getY()) {
@@ -220,7 +223,28 @@ public class GameModel {
     }
 
     private boolean impactWall() {
-        return wallHandler.impactWall(ball);
+        for (Brick brick : getBricks()) {
+            if (brick != null && !brick.isBroken()) {
+                switch (brick.findImpact(ball)) {
+                    //Vertical Impact
+                    case Brick.UP_IMPACT:
+                        ball.reverseY();
+                        return brick.setImpact(ball.getDown(), Crack.UP);
+                    case Brick.DOWN_IMPACT:
+                        ball.reverseY();
+                        return brick.setImpact(ball.getUp(), Crack.DOWN);
+
+                    //Horizontal Impact
+                    case Brick.LEFT_IMPACT:
+                        ball.reverseX();
+                        return brick.setImpact(ball.getRight(), Crack.RIGHT);
+                    case Brick.RIGHT_IMPACT:
+                        ball.reverseX();
+                        return brick.setImpact(ball.getLeft(), Crack.LEFT);
+                }
+            }
+        }
+        return false;
     }
 
     private boolean impactBorder() {
@@ -264,5 +288,10 @@ public class GameModel {
         }
         controller.updateStatus(message, color);
         controller.repaintView();
+    }
+
+    private void randomizeBallColors() {
+        ball.setInnerColor(new java.awt.Color(rnd.nextInt(256), rnd.nextInt(256),
+                rnd.nextInt(256), rnd.nextInt(256)));
     }
 }
