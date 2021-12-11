@@ -5,6 +5,7 @@ import com.game.comp2042_cw_hcyot1.ball.Ball;
 import com.game.comp2042_cw_hcyot1.ball.RubberBall;
 import com.game.comp2042_cw_hcyot1.brick.Brick;
 import com.game.comp2042_cw_hcyot1.wall.WallHandler;
+import javafx.scene.paint.Color;
 
 import javax.swing.*;
 import java.awt.*;
@@ -172,6 +173,27 @@ public class GameModel {
         player.stop();
     }
 
+    public void moveRight() {
+        player.moveRight();
+    }
+
+    public void moveLeft() {
+        player.moveLeft();
+    }
+
+    public int getSpeedX() {
+        return ball.getSpeedX();
+    }
+
+    public int getSpeedY() {
+        return ball.getSpeedY();
+    }
+
+    public void restart() {
+        wallReset();
+        ballReset();
+    }
+
     private int randomSpeedY() {
         int speedY;
         do {
@@ -198,40 +220,37 @@ public class GameModel {
     }
 
     private void initializeTimer() {
+        String message = "Bricks: " + getBrickCount() +
+                "   |   Balls left: " + getBallCount();
+        Color color = Color.DARKBLUE;
+
         this.move();
         this.findImpacts();
         if (isBallLost()) {
             if (ballEnd()) {
                 wallReset();
+                message = "Game Over";
+                color = Color.DARKRED;
             }
             ballReset();
             gameTimer.stop();
         } else if (isDone()) {
             if (hasLevel()) {
+                message = "Go to Next Level";
+                color = Color.MEDIUMAQUAMARINE;
                 gameTimer.stop();
                 ballReset();
                 wallReset();
                 nextLevel();
             } else {
+                message = "ALL WALLS DESTROYED";
+                color = Color.DARKGREEN;
                 gameTimer.stop();
             }
         }
+
+        controller.printMessage(message, color);
+
         controller.repaintView();
-    }
-
-    public void moveRight() {
-        player.moveRight();
-    }
-
-    public void moveLeft() {
-        player.moveLeft();
-    }
-
-    public int getSpeedX() {
-        return ball.getSpeedX();
-    }
-
-    public int getSpeedY() {
-        return ball.getSpeedY();
     }
 }

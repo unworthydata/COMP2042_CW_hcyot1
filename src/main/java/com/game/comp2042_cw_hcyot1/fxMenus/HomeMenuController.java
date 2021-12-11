@@ -13,7 +13,8 @@ public class HomeMenuController {
     public void startGame(ActionEvent event) {
         try {
             GameController game = new GameController();
-            game.start((Stage) ((Node) event.getSource()).getScene().getWindow());
+            Stage current = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            game.start(current);
         } catch (IOException e) {
             e.printStackTrace();
         }

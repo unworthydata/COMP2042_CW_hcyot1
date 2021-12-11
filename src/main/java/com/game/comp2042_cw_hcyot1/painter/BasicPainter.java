@@ -22,10 +22,6 @@ public class BasicPainter implements Painter {
         this.height = height;
     }
 
-    public BasicPainter(Graphics2D graphics2D) {
-        this.graphics2D = graphics2D;
-    }
-
     public void clear(Color bgColor) {
         Color tmp = graphics2D.getColor();
         graphics2D.setColor(bgColor);
@@ -58,8 +54,6 @@ public class BasicPainter implements Painter {
         graphics2D.setComposite(tmp);
         graphics2D.setColor(tmpColor);
     }
-
-    public void drawPauseMenu() {}
 
     public void draw(Shape shape, Color innerColor, Color borderColor) {
         Color tmp = graphics2D.getColor();

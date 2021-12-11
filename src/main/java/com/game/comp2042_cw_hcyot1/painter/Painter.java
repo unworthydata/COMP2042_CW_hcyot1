@@ -17,7 +17,5 @@ public interface Painter {
 
     void obscureGameBoard();
 
-    void drawPauseMenu();
-
     void draw(Shape shape, Color innerColor, Color borderColor);
 }

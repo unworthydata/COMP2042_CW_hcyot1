@@ -5,21 +5,26 @@ import com.game.comp2042_cw_hcyot1.fxMenus.debug.DebugConsoleController;
 import javafx.application.Application;
 import javafx.embed.swing.SwingNode;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 
 import javax.swing.*;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.io.IOException;
 
 public class GameController extends Application {
     private static final int DEF_WIDTH = 600;
     private static final int DEF_HEIGHT = 450;
+
     private Scene scene;
     private Stage stage;
+
     private GameModel gameModel = new GameModel(new Rectangle(0, 0, 600, 450),
             new Point(300, 430), this);
     private GameView gameView = new GameView(gameModel);
@@ -34,21 +39,76 @@ public class GameController extends Application {
         StackPane pane = new StackPane();
         pane.getChildren().add(swingNode);
 
+        gameView.drawStatus(pane);
+
         scene = new Scene(pane, DEF_WIDTH, DEF_HEIGHT);
         scene.setOnKeyPressed(this::handleKeyPressed);
         scene.setOnKeyReleased(this::handleKeyReleased);
 
         stage.setScene(scene);
 
-        stage.focusedProperty().addListener(event -> onLostFocus());
+        stage.focusedProperty().addListener(event -> {
+            if (!stage.focusedProperty().getValue())
+                onLostFocus();
+            else
+                gameView.updateStatus("");
+        });
+
         stage.show();
 
-//        sometimes the game gets stuck in paused mode, this ensures that when the game starts, it is unpaused
+//      sometimes the game gets stuck in paused mode, this ensures that when the game starts, it is unpaused
         gameModel.unPauseGame();
     }
 
     public static void main() {
         launch();
+    }
+
+    public void onLostFocus() {
+        gameModel.stopGame();
+        gameView.updateStatus("LOST FOCUS", Color.RED);
+    }
+
+    public void restart() {
+        gameModel.restart();
+        repaintView();
+    }
+
+    private void showPauseMenu() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("PauseMenu.fxml"));
+            loader.setControllerFactory(c -> new PauseMenuController(this));
+
+            scene.setRoot(loader.load());
+
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showDebugConsole() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("DebugConsole.fxml"));
+            loader.setControllerFactory(c -> new DebugConsoleController(gameModel));
+
+            Scene debugScene = new Scene(loader.load());
+
+            Stage debugStage = new Stage();
+            debugStage.setScene(debugScene);
+            debugStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void repaintView() {
+        gameView.repaintView();
+    }
+
+    public Scene getScene() {
+        return scene;
     }
 
     private void createAndSetSwingContent(final SwingNode swingNode) {
@@ -90,53 +150,7 @@ public class GameController extends Application {
         gameModel.stopPlayer();
     }
 
-    public void onLostFocus() {
-        gameModel.stopGame();
-    }
-
-    private void showPauseMenu() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("PauseMenu.fxml"));
-            Parent root = loader.load();
-            PauseMenuController pauseMenuController = loader.getController();
-            pauseMenuController.setGameController(this);
-
-            scene.setRoot(root);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        stage.setScene(scene);
-        stage.show();
-    }
-
-    public Scene getScene() {
-        return scene;
-    }
-
-    public void repaintView() {
-        gameView.repaintView();
-    }
-
-    public void showDebugConsole() {
-        Scene debugScene = null;
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("DebugConsole.fxml"));
-            loader.setControllerFactory(c -> new DebugConsoleController(gameModel));
-            Parent root = loader.load();
-
-            debugScene = new Scene(root);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        Stage debugStage = new Stage();
-        debugStage.setScene(debugScene);
-        debugStage.show();
-    }
-
-    public void restart() {
-        gameModel.wallReset();
-        gameModel.ballReset();
+    public void printMessage(String string, Color color) {
+        gameView.updateStatus(string, color);
     }
 }

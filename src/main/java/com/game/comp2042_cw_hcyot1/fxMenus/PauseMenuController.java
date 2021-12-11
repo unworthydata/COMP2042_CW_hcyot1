@@ -10,6 +10,10 @@ import java.io.IOException;
 public class PauseMenuController {
     private GameController controller;
 
+    public PauseMenuController(GameController controller) {
+        this.controller = controller;
+    }
+
     public void resume(ActionEvent event) throws IOException {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         controller.start(stage);
@@ -41,8 +45,4 @@ public class PauseMenuController {
 //            System.exit(0);
 //        }
 //    }
-
-    public void setGameController(GameController controller) {
-        this.controller = controller;
-    }
 }
