@@ -1,8 +1,6 @@
 package com.game.comp2042_cw_hcyot1.game;
 
 import com.game.comp2042_cw_hcyot1.Controller;
-import com.game.comp2042_cw_hcyot1.PauseMenuController;
-import com.game.comp2042_cw_hcyot1.debug.DebugConsoleController;
 import javafx.application.Application;
 import javafx.embed.swing.SwingNode;
 import javafx.fxml.FXMLLoader;
