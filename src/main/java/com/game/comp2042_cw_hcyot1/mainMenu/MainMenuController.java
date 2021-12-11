@@ -1,9 +1,13 @@
 package com.game.comp2042_cw_hcyot1.mainMenu;
 
 import com.game.comp2042_cw_hcyot1.Controller;
+import com.game.comp2042_cw_hcyot1.LeaderboardController;
 import com.game.comp2042_cw_hcyot1.game.GameController;
+import com.game.comp2042_cw_hcyot1.game.ScoreHandler;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -27,5 +31,9 @@ public class MainMenuController {
 
     public void exit(ActionEvent event) {
         System.exit(0);
+    }
+
+    public void showLeaderboard(ActionEvent event) {
+        Controller.switchScenes("Leaderboard", event);
     }
 }

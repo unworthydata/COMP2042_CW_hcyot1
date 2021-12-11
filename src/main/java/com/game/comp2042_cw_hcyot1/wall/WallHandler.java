@@ -4,6 +4,10 @@ import com.game.comp2042_cw_hcyot1.ball.Ball;
 import com.game.comp2042_cw_hcyot1.brick.Brick;
 import com.game.comp2042_cw_hcyot1.brick.BrickType;
 import com.game.comp2042_cw_hcyot1.brick.Crack;
+import com.game.comp2042_cw_hcyot1.game.ScoreHandler;
+
+import java.io.IOException;
+import java.util.LinkedHashMap;
 
 public class WallHandler {
     private final int WALLS_COUNT = 4;
@@ -81,5 +85,9 @@ public class WallHandler {
 
     public Brick[] getBricks() {
         return currentWall.getBricks();
+    }
+
+    public int currentLevel() {
+        return wall + 1;
     }
 }

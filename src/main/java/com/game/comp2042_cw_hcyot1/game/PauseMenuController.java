@@ -26,24 +26,7 @@ public class PauseMenuController {
     }
 
     public void exitToMainMenu(ActionEvent event) {
+        controller.saveScores();
         Controller.switchScenes("mainMenu/MainMenu", event);
     }
-
-    //    private void handleMouseClicked(MouseEvent mouseEvent) {
-//        Point p = mouseEvent.getPoint();
-//        if (!showPauseMenu)
-//            return;
-//        if (continueButtonRect.contains(p)) {
-//            showPauseMenu = false;
-//            repaint();
-//        } else if (restartButtonRect.contains(p)) {
-//            message = "Restarting Game...";
-//            gameModel.ballReset();
-//            gameModel.wallReset();
-//            showPauseMenu = false;
-//            repaint();
-//        } else if (exitButtonRect.contains(p)) {
-//            System.exit(0);
-//        }
-//    }
 }

@@ -29,11 +29,11 @@ application {
 
 javafx {
     version = '17'
-    modules = ['javafx.controls', 'javafx.fxml','javafx.base', 'javafx.graphics', 'javafx.swing']
+    modules = ['javafx.controls', 'javafx.fxml', 'javafx.base', 'javafx.graphics', 'javafx.swing']
 }
 
 dependencies {
-    implementation 'org.jfree:org.jfree.fxgraphics2d:2.1.2'
+    implementation 'org.apache.commons:commons-csv:1.9.0'
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
 }

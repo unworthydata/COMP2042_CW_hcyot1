@@ -1,18 +1,24 @@
 package com.game.comp2042_cw_hcyot1.game;
 
 import com.game.comp2042_cw_hcyot1.Controller;
+import com.game.comp2042_cw_hcyot1.LeaderboardController;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.embed.swing.SwingNode;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+import java.util.LinkedHashMap;
 
 public class GameController extends Application {
     private Scene scene;
@@ -39,6 +45,8 @@ public class GameController extends Application {
             else
                 gameView.updateStatus("FOCUS REGAINED", Color.HOTPINK);
         });
+        stage.onCloseRequestProperty().set(event -> gameModel.saveScores());
+
         stage.setScene(scene);
         stage.show();
 
@@ -90,8 +98,6 @@ public class GameController extends Application {
             loader.setControllerFactory(c -> new PauseMenuController(this));
 
             scene.setRoot(loader.load());
-
-            stage.setResizable(false);
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
@@ -142,5 +148,9 @@ public class GameController extends Application {
 
     private void handleKeyReleased(KeyEvent keyEvent) {
         gameModel.stopPlayer();
+    }
+
+    public void saveScores() {
+        gameModel.saveScores();
     }
 }

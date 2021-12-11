@@ -29,6 +29,10 @@ public class GameModel {
 
     private boolean isPaused;
 
+    private int score = 0;
+
+    private ScoreHandler scoreHandler = new ScoreHandler();
+
     public GameModel(Rectangle drawArea, Point ballPos, GameController controller) {
         this.startPoint = new Point(ballPos);
         this.controller = controller;
@@ -75,6 +79,7 @@ public class GameModel {
              * because for every brick program checks for horizontal and vertical impacts
              */
             wallHandler.breakBrick();
+            score++;
         } else if (impactBorder()) {
             ball.reverseX();
         } else if (ball.getPosition().getY() < area.getY()) {
@@ -101,7 +106,7 @@ public class GameModel {
         return ballLost;
     }
 
-    public void ballReset() {
+    public void ballPositionReset() {
         player.moveTo(startPoint);
         ball.moveTo(startPoint);
         ball.setSpeed(randomSpeedX(), randomSpeedY());
@@ -110,7 +115,7 @@ public class GameModel {
 
     public void wallReset() {
         wallHandler.wallReset();
-        ballReset();
+        score = 0;
     }
 
     public boolean ballEnd() {
@@ -191,7 +196,11 @@ public class GameModel {
 
     public void restart() {
         wallReset();
-        ballReset();
+        ballPositionReset();
+    }
+
+    public void saveScores() {
+        scoreHandler.saveScores();
     }
 
     private int randomSpeedY() {
@@ -231,15 +240,16 @@ public class GameModel {
                 wallReset();
                 message = "Game Over";
                 color = Color.DARKRED;
+                resetBallCount();
             }
-            ballReset();
+            ballPositionReset();
             gameTimer.stop();
         } else if (isDone()) {
             if (hasLevel()) {
                 message = "Go to Next Level";
                 color = Color.MEDIUMAQUAMARINE;
                 gameTimer.stop();
-                ballReset();
+                ballPositionReset();
                 wallReset();
                 nextLevel();
             } else {
@@ -249,6 +259,7 @@ public class GameModel {
             }
         }
 
+        scoreHandler.checkAndSetHighscore(wallHandler.currentLevel(), score);
         controller.updateStatus(message, color);
         controller.repaintView();
     }
