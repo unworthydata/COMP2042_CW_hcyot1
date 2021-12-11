@@ -5,7 +5,6 @@ import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.stage.Stage;
 
-
 import java.io.IOException;
 
 public class HomeMenuController {
@@ -14,6 +13,7 @@ public class HomeMenuController {
         try {
             GameController game = new GameController();
             Stage current = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            current.setResizable(false);
             game.start(current);
         } catch (IOException e) {
             e.printStackTrace();

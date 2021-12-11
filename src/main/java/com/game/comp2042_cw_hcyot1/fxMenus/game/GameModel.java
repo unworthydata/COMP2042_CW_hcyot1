@@ -250,7 +250,6 @@ public class GameModel {
         }
 
         controller.printMessage(message, color);
-
         controller.repaintView();
     }
 }

@@ -1,27 +1,22 @@
 package com.game.comp2042_cw_hcyot1.fxMenus.game;
 
+import com.game.comp2042_cw_hcyot1.fxMenus.Controller;
 import com.game.comp2042_cw_hcyot1.fxMenus.PauseMenuController;
 import com.game.comp2042_cw_hcyot1.fxMenus.debug.DebugConsoleController;
 import javafx.application.Application;
 import javafx.embed.swing.SwingNode;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 
 import javax.swing.*;
-import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.io.IOException;
 
 public class GameController extends Application {
-    private static final int DEF_WIDTH = 600;
-    private static final int DEF_HEIGHT = 450;
-
     private Scene scene;
     private Stage stage;
 
@@ -33,35 +28,24 @@ public class GameController extends Application {
     public void start(Stage stage) throws IOException {
         this.stage = stage;
 
-        final SwingNode swingNode = new SwingNode();
-        createAndSetSwingContent(swingNode);
+        StackPane root = initializeRoot();
+        gameView.drawStatus(root);
 
-        StackPane pane = new StackPane();
-        pane.getChildren().add(swingNode);
-
-        gameView.drawStatus(pane);
-
-        scene = new Scene(pane, DEF_WIDTH, DEF_HEIGHT);
+        scene = new Scene(root, Controller.DEF_WIDTH, Controller.DEF_HEIGHT);
         scene.setOnKeyPressed(this::handleKeyPressed);
         scene.setOnKeyReleased(this::handleKeyReleased);
-
-        stage.setScene(scene);
 
         stage.focusedProperty().addListener(event -> {
             if (!stage.focusedProperty().getValue())
                 onLostFocus();
             else
-                gameView.updateStatus("");
+                gameView.updateStatus("FOCUS REGAINED", Color.HOTPINK);
         });
-
+        stage.setScene(scene);
         stage.show();
 
 //      sometimes the game gets stuck in paused mode, this ensures that when the game starts, it is unpaused
         gameModel.unPauseGame();
-    }
-
-    public static void main() {
-        launch();
     }
 
     public void onLostFocus() {
@@ -74,20 +58,6 @@ public class GameController extends Application {
         repaintView();
     }
 
-    private void showPauseMenu() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("PauseMenu.fxml"));
-            loader.setControllerFactory(c -> new PauseMenuController(this));
-
-            scene.setRoot(loader.load());
-
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     public void showDebugConsole() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("DebugConsole.fxml"));
@@ -96,6 +66,7 @@ public class GameController extends Application {
             Scene debugScene = new Scene(loader.load());
 
             Stage debugStage = new Stage();
+            debugStage.setResizable(false);
             debugStage.setScene(debugScene);
             debugStage.show();
         } catch (IOException e) {
@@ -111,8 +82,33 @@ public class GameController extends Application {
         return scene;
     }
 
-    private void createAndSetSwingContent(final SwingNode swingNode) {
+    public void printMessage(String string, Color color) {
+        gameView.updateStatus(string, color);
+    }
+
+    private void showPauseMenu() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("PauseMenu.fxml"));
+            loader.setControllerFactory(c -> new PauseMenuController(this));
+
+            scene.setRoot(loader.load());
+
+            stage.setResizable(false);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private StackPane initializeRoot() {
+        final SwingNode swingNode = new SwingNode();
         SwingUtilities.invokeLater(() -> swingNode.setContent(gameView));
+
+        StackPane root = new StackPane();
+        root.getChildren().add(swingNode);
+
+        return root;
     }
 
     private void handleKeyPressed(KeyEvent event) {
@@ -148,9 +144,5 @@ public class GameController extends Application {
 
     private void handleKeyReleased(KeyEvent keyEvent) {
         gameModel.stopPlayer();
-    }
-
-    public void printMessage(String string, Color color) {
-        gameView.updateStatus(string, color);
     }
 }

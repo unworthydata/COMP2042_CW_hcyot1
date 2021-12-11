@@ -7,11 +7,6 @@ import com.game.comp2042_cw_hcyot1.brick.Brick;
 import java.awt.*;
 
 public class BasicPainter implements Painter {
-    private static final String CONTINUE = "Continue";
-    private static final String RESTART = "Restart";
-    private static final String EXIT = "Exit";
-    private static final String PAUSE = "Pause Menu";
-
     private Graphics2D graphics2D;
     private int width;
     private int height;
