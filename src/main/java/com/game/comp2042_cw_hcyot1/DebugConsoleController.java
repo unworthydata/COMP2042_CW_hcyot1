@@ -10,6 +10,10 @@ import javafx.scene.control.Slider;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Controller for the Debug Console. You can skip levels, reset balls,
+ * and change X and Y ball speed in the Debug Console.
+ */
 public class DebugConsoleController implements Initializable {
     @FXML
     Slider xSlider;
@@ -29,6 +33,11 @@ public class DebugConsoleController implements Initializable {
         this.gameModel = gameModel;
     }
 
+    /**
+     * Initialize the Debug Console by setting change listeners to
+     * the X and Y speed sliders, and updating the speed labels to reflect
+     * the current speed.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         currentXSpeed = Math.abs(gameModel.getSpeedX());
@@ -54,10 +63,16 @@ public class DebugConsoleController implements Initializable {
         });
     }
 
+    /**
+     * Tells the game model to skip to the next level.
+     */
     public void skipLevel(ActionEvent event) {
         gameModel.nextLevel();
     }
 
+    /**
+     * Tells the game model to reset the number of balls remaining.
+     */
     public void resetBalls(ActionEvent event) {
         gameModel.resetBallCount();
     }

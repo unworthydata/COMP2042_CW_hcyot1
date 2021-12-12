@@ -83,7 +83,7 @@ public class GameController extends Application {
     }
 
     /**
-     * Shows the debug console. In order for the debug console to be
+     * Shows the debug console in a new window. In order for the debug console to be
      * linked to the current game, the {@link GameModel} ({@link #gameModel})
      * is passed as an argument to the {@link DebugConsoleController}
      */

@@ -21,7 +21,9 @@ import com.game.comp2042_cw_hcyot1.ball.Ball;
 
 import java.awt.*;
 
-
+/**
+ * Class representing the Player (the sliding bar at the bottom of the game)
+ */
 public class Player {
     private final Color BORDER_COLOR = Color.GREEN.darker().darker();
     private final Color INNER_COLOR = Color.GREEN;
@@ -34,6 +36,9 @@ public class Player {
     private int min;
     private int max;
 
+    /**
+     * Sets the limits of the player's movement to the left and right edges of the window.
+     */
     public Player(Point ballPoint, int width, int height, Rectangle container) {
         this.ballPoint = ballPoint;
         moveAmount = 0;
@@ -42,10 +47,17 @@ public class Player {
         max = min + container.width - width;
     }
 
-    public boolean impact(Ball b) {
-        return playerFace.contains(b.getPosition()) && playerFace.contains(b.getDown());
+    /**
+     * Checks if the ball has impacted with the player.
+     * @return true if the ball has impacted with the player, otherwise return false.
+     */
+    public boolean impact(Ball ball) {
+        return playerFace.contains(ball.getPosition()) && playerFace.contains(ball.getDown());
     }
 
+    /**
+     * Moves the player.
+     */
     public void move() {
         double x = ballPoint.getX() + moveAmount;
         if (x < min || x > max)
@@ -54,25 +66,38 @@ public class Player {
         playerFace.setLocation(ballPoint.x - (int) playerFace.getWidth() / 2, ballPoint.y);
     }
 
+    /**
+     * Moves the player to a specific {@link Point}.
+     * @param p Moves the player to this point.
+     */
+    public void moveTo(Point p) {
+        ballPoint.setLocation(p);
+        playerFace.setLocation(ballPoint.x - (int) playerFace.getWidth() / 2, ballPoint.y);
+    }
+
+    /**
+     * Moves the player left
+     */
     public void moveLeft() {
         moveAmount = -DEF_MOVE_AMOUNT;
     }
 
+    /**
+     * Moves the player right
+     */
     public void moveRight() {
         moveAmount = DEF_MOVE_AMOUNT;
     }
 
+    /**
+     * Stops the player.
+     */
     public void stop() {
         moveAmount = 0;
     }
 
     public Shape getPlayerFace() {
         return playerFace;
-    }
-
-    public void moveTo(Point p) {
-        ballPoint.setLocation(p);
-        playerFace.setLocation(ballPoint.x - (int) playerFace.getWidth() / 2, ballPoint.y);
     }
 
     public Color getBorderColor() {

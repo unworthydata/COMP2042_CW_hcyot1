@@ -8,6 +8,9 @@ import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 
+/**
+ * Main class
+ */
 public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
