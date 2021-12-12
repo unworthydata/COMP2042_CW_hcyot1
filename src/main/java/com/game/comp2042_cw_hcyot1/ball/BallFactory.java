@@ -17,7 +17,7 @@ public class BallFactory {
      *
      * @param center Center point of the new Ball.
      * @param type {@link BallType} of the new Ball
-     * @return A new Ball object
+     * @return A new {@link Ball} object
      */
     public static Ball makeBall(Point2D center, BallType type) {
         return switch (type) {

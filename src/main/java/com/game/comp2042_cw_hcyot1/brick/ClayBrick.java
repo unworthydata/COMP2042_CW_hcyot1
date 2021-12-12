@@ -3,9 +3,8 @@ package com.game.comp2042_cw_hcyot1.brick;
 import java.awt.*;
 import java.awt.Point;
 
-
 /**
- * Created by filippo on 04/09/16.
+ * The most basic implementation of the {@link Brick} abstract class. Breaks in one hit.
  */
 public class ClayBrick extends Brick {
     private static final Color DEF_INNER = new Color(178, 34, 34).darker();

@@ -3,7 +3,7 @@ package com.game.comp2042_cw_hcyot1.game;
 import com.game.comp2042_cw_hcyot1.Player;
 import com.game.comp2042_cw_hcyot1.ball.*;
 import com.game.comp2042_cw_hcyot1.brick.Brick;
-import com.game.comp2042_cw_hcyot1.brick.Crack;
+import com.game.comp2042_cw_hcyot1.brick.CrackType;
 import com.game.comp2042_cw_hcyot1.wall.WallHandler;
 import javafx.scene.paint.Color;
 
@@ -221,23 +221,23 @@ public class GameModel {
 
     private boolean impactWall() {
         for (Brick brick : getBricks()) {
-            if (brick != null && !brick.isBroken()) {
+            if (brick != null && !brick.isBroken() && brick.findImpact(ball) != null) {
                 switch (brick.findImpact(ball)) {
-                    //Vertical Impact
-                    case Brick.UP_IMPACT:
+                    //Vertical BrickImpact
+                    case UP:
                         ball.reverseY();
-                        return brick.setImpact(ball.getDown(), Crack.UP);
-                    case Brick.DOWN_IMPACT:
+                        return brick.setImpact(ball.getDown(), CrackType.UP);
+                    case DOWN:
                         ball.reverseY();
-                        return brick.setImpact(ball.getUp(), Crack.DOWN);
+                        return brick.setImpact(ball.getUp(), CrackType.DOWN);
 
-                    //Horizontal Impact
-                    case Brick.LEFT_IMPACT:
+                    //Horizontal BrickImpact
+                    case LEFT:
                         ball.reverseX();
-                        return brick.setImpact(ball.getRight(), Crack.RIGHT);
-                    case Brick.RIGHT_IMPACT:
+                        return brick.setImpact(ball.getRight(), CrackType.RIGHT);
+                    case RIGHT:
                         ball.reverseX();
-                        return brick.setImpact(ball.getLeft(), Crack.LEFT);
+                        return brick.setImpact(ball.getLeft(), CrackType.LEFT);
                 }
             }
         }

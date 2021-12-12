@@ -21,9 +21,13 @@ import java.awt.*;
 import java.awt.geom.Point2D;
 import java.util.Random;
 
-
+/**
+ * An implementation of the Brick abstract class where a brick is not guaranteed to break when hit, rather,
+ * there is a probability {@link #STEEL_PROBABILITY} that the steel brick breaks.
+ *
+ * @see Brick
+ */
 public class SteelBrick extends Brick {
-
     private static final Color DEF_INNER = new Color(203, 203, 201);
     private static final Color DEF_BORDER = Color.BLACK;
     private static final int STEEL_STRENGTH = 1;
@@ -35,6 +39,11 @@ public class SteelBrick extends Brick {
         super(point, size, DEF_BORDER, DEF_INNER, STEEL_STRENGTH);
     }
 
+    /**
+     * Randomization is used to determine if the brick was impacted or not.
+     * Since this brick has a {@link #STEEL_STRENGTH} = 1,
+     * this means that when a ball hits and is considered to have impacted, the brick breaks immediately.
+     */
     @Override
     public void impact() {
         if (rnd.nextDouble() < STEEL_PROBABILITY)
