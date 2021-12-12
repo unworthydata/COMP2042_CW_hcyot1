@@ -3,7 +3,7 @@ package com.game.comp2042_cw_hcyot1.game;
 import com.game.comp2042_cw_hcyot1.Controller;
 import com.game.comp2042_cw_hcyot1.DebugConsoleController;
 import javafx.application.Application;
-import javafx.embed.swing.SwingNode;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
@@ -11,21 +11,32 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 
+/**
+ * @see GameView
+ * @see GameModel
+ */
 public class GameController extends Application {
     private Scene scene;
     private Stage stage;
-    StackPane root;
 
-    private GameModel gameModel = new GameModel(new Rectangle(0, 0, 600, 450),
-            new Point(300, 430), this);
     private GameView gameView;
+    private GameModel gameModel = new GameModel(
+            new Rectangle(0, 0, Controller.DEF_WIDTH, Controller.DEF_HEIGHT),
+            new Point(300, 430),
+            this
+    );
 
+    /**
+     * Instantiates the GameView, adds keystroke and focus listeners, and starts the game.
+     * Also makes sure the high scores are saved in case the window closes mid-game.
+     *
+     * @see GameView
+     */
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage) {
         this.stage = stage;
 
         gameView = new GameView(gameModel);
@@ -51,16 +62,31 @@ public class GameController extends Application {
         gameView.displayPaused();
     }
 
+    /**
+     * Called when the window loses focus.
+     * Stops the game and tells the {@link GameView} ({@link #gameView})
+     * to handle losing focus (by updating the status message).
+     *
+     * @see GameView#onLostFocus()
+     */
     public void onLostFocus() {
         gameModel.stopGame();
-        gameView.updateStatus("LOST FOCUS", Color.RED);
+        gameView.onLostFocus();
     }
 
+    /**
+     * Tells the {@link GameModel} ({@link #gameModel}) to restart the game, then tells the {@link GameView} ({@link #gameView})  to update itself.
+     */
     public void restart() {
         gameModel.restart();
-        repaintView();
+        gameView.repaintView();
     }
 
+    /**
+     * Shows the debug console. In order for the debug console to be
+     * linked to the current game, the {@link GameModel} ({@link #gameModel})
+     * is passed as an argument to the {@link DebugConsoleController}
+     */
     public void showDebugConsole() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("DebugConsole.fxml"));
@@ -77,16 +103,42 @@ public class GameController extends Application {
         }
     }
 
+    /**
+     * Tells the {@link GameView} ({@link #gameView}) to update itself
+     */
     public void repaintView() {
         gameView.repaintView();
     }
 
-    public Scene getScene() {
-        return scene;
-    }
-
+    /**
+     * Tells the {@link GameView} ({@link #gameView}) to update the status message
+     * @param string The message to be displayed
+     * @param color The color of the string to be displayed
+     */
     public void updateStatus(String string, Color color) {
         gameView.updateStatus(string, color);
+    }
+
+    /**
+     * Tells the {@link GameModel} ({@link #gameModel}) to save scores. Used in the pause menu when exiting.
+     * @see PauseMenuController#exitToMainMenu(ActionEvent)
+     */
+    public void saveScores() {
+        gameModel.saveScores();
+    }
+
+    /**
+     * Tells the Tells the {@link GameView} ({@link #gameView})
+     * to update because there is a new high score.
+     *
+     * @param newHighScore The new high score
+     */
+    public void displayNewHighScore(int newHighScore) {
+        gameView.displayNewHighScore(newHighScore);
+    }
+
+    public Scene getScene() {
+        return scene;
     }
 
     private void showPauseMenu() {
@@ -140,13 +192,5 @@ public class GameController extends Application {
 
     private void handleKeyReleased(KeyEvent keyEvent) {
         gameModel.stopPlayer();
-    }
-
-    public void saveScores() {
-        gameModel.saveScores();
-    }
-
-    public void displayNewHighScore(int newHighScore) {
-        gameView.displayNewHighScore(newHighScore);
     }
 }

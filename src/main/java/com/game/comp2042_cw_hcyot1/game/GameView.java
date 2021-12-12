@@ -1,5 +1,6 @@
 package com.game.comp2042_cw_hcyot1.game;
 
+import com.game.comp2042_cw_hcyot1.Controller;
 import com.game.comp2042_cw_hcyot1.brick.Brick;
 import com.game.comp2042_cw_hcyot1.painter.BasicPainter;
 import javafx.application.Platform;
@@ -18,9 +19,17 @@ import javax.swing.*;
 import javax.swing.border.StrokeBorder;
 import java.awt.*;
 
+/**
+ * Every part of this software uses JavaFX, except this class.
+ *
+ * {@link GameView} uses a {@link SwingNode} to display the game,
+ * which allows it to display Swing graphics in a
+ * JavaFX context, but otherwise fully uses JavaFX.
+ *
+ * @see GameModel
+ * @see GameController
+ */
 public class GameView extends JComponent {
-    private static final int DEF_WIDTH = 600;
-    private static final int DEF_HEIGHT = 450;
     private static final java.awt.Color BG_COLOR = java.awt.Color.WHITE;
 
     private BasicPainter painter;
@@ -35,6 +44,11 @@ public class GameView extends JComponent {
     private Label statusLabel;
     private Label highScoreStatus;
 
+    /**
+     * The {@link SwingNode} is set here to display the game.
+     * @param gameModel current game model which is needed to
+     *                 draw the game objects later on
+     */
     public GameView(GameModel gameModel) {
         super();
         this.gameModel = gameModel;
@@ -49,10 +63,13 @@ public class GameView extends JComponent {
         paused.setFitHeight(140);
     }
 
+    /**
+     * Override from the {@link JComponent} parent class. Displays all game objects on the screen.
+     */
     @Override
     public void paint(Graphics g) {
         graphics2D = (Graphics2D) g;
-        painter = new BasicPainter(graphics2D, DEF_WIDTH, DEF_HEIGHT);
+        painter = new BasicPainter(graphics2D, Controller.DEF_WIDTH, Controller.DEF_HEIGHT);
         painter.clear(BG_COLOR);
 
         painter.drawBall(gameModel.getBall());
@@ -66,11 +83,66 @@ public class GameView extends JComponent {
         Toolkit.getDefaultToolkit().sync();
     }
 
+    /**
+     * Updates the view.
+     * @see GameController
+     */
     public void repaintView() {
         repaint();
     }
 
-    public void drawStatus() {
+    /**
+     * Updates the status message
+     * @param string The new status message
+     * @param color Color of the new status message
+     */
+    public void updateStatus(String string, Color color) {
+        Platform.runLater(() -> {
+            statusLabel.setText(string);
+            statusLabel.setTextFill(color);
+        });
+    }
+
+    /**
+     * Displays the new high score.
+     * @param newHighScore the new high score.
+     */
+    public void displayNewHighScore(int newHighScore) {
+        Platform.runLater(() -> highScoreStatus.setText("NEW HIGH SCORE: " + newHighScore));
+    }
+
+    /**
+     * Displays an image when the game is paused.
+     */
+    public void displayPaused() {
+        try {
+            root.getChildren().add(paused);
+        } catch (Exception e) {
+        }
+    }
+
+    /**
+     * Indicate that focus was lost from the game window.
+     */
+    public void onLostFocus() {
+        updateStatus("LOST FOCUS", Color.RED);
+    }
+
+    /**
+     * Removes the pause image when the game is resumed/unpaused.
+     */
+    public void displayUnpaused() {
+        try {
+            root.getChildren().remove(paused);
+        } catch (Exception e) {
+        }
+    }
+
+    public StackPane getRoot() {
+        return root;
+    }
+
+    private void drawStatus() {
         statusLabel = new Label("");
         statusLabel.setFont(new Font("Consolas", 15));
 
@@ -81,34 +153,5 @@ public class GameView extends JComponent {
 
         root.getChildren().add(statusLabel);
         root.getChildren().add(highScoreStatus);
-    }
-
-    public void updateStatus(String string, Color color) {
-        Platform.runLater(() -> {
-            statusLabel.setText(string);
-            statusLabel.setTextFill(color);
-        });
-    }
-
-    public void displayNewHighScore(int newHighScore) {
-        Platform.runLater(() -> highScoreStatus.setText("NEW HIGH SCORE: " + newHighScore));
-    }
-
-    public void displayPaused() {
-        try {
-            root.getChildren().add(paused);
-        } catch (Exception e) {
-        }
-    }
-
-    public StackPane getRoot() {
-        return root;
-    }
-
-    public void displayUnpaused() {
-        try {
-            root.getChildren().remove(paused);
-        } catch (Exception e) {
-        }
     }
 }

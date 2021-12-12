@@ -1,7 +1,9 @@
 package com.game.comp2042_cw_hcyot1.game;
 
 import com.game.comp2042_cw_hcyot1.Player;
-import com.game.comp2042_cw_hcyot1.ball.*;
+import com.game.comp2042_cw_hcyot1.ball.Ball;
+import com.game.comp2042_cw_hcyot1.ball.BallFactory;
+import com.game.comp2042_cw_hcyot1.ball.BallType;
 import com.game.comp2042_cw_hcyot1.brick.Brick;
 import com.game.comp2042_cw_hcyot1.brick.CrackType;
 import com.game.comp2042_cw_hcyot1.wall.WallHandler;
@@ -12,27 +14,41 @@ import java.awt.*;
 import java.awt.geom.Point2D;
 import java.util.Random;
 
+/**
+ * Handles Ball-Player-Wall interaction, but leaves as much detail
+ * about the levels and their organisation and state to {@link #wallHandler} as possible.
+ *
+ * Anything that needs to be shown on screen is handled by {@link #controller}, to achieve separation of concerns.
+ * @see GameView
+ * @see GameController
+ */
 public class GameModel {
-    private Random rnd;
-    private Rectangle area;
+    private final Random rnd;
+    private final Rectangle area;
 
-    private Ball ball;
-    private Player player;
+    private final Ball ball;
+    private final Player player;
 
-    private Point startPoint;
-    private GameController controller;
+    private final Point startPoint;
+    private final GameController controller;
+    /**
+     * {@link #wallHandler} handles all the level and brick mechanics.
+     */
+    private final WallHandler wallHandler;
+    private final Timer gameTimer;
+    private final ScoreHandler scoreHandler = new ScoreHandler();
     private int ballCount;
     private boolean ballLost;
-
-    private WallHandler wallHandler;
-    private Timer gameTimer;
-
     private boolean isPaused;
-
     private int score = 0;
 
-    private ScoreHandler scoreHandler = new ScoreHandler();
-
+    /**
+     * Initializes fields and game objects ({@link Ball}, {@link Player}, {@link WallHandler})
+     *
+     * @param drawArea   Area that the game takes place in
+     * @param ballPos    Initial ball position
+     * @param controller {@link GameController}
+     */
     public GameModel(Rectangle drawArea, Point ballPos, GameController controller) {
         this.startPoint = new Point(ballPos);
         this.controller = controller;
@@ -42,8 +58,7 @@ public class GameModel {
 
         rnd = new Random();
 
-        makeBall(ballPos);
-
+        ball = BallFactory.makeBall(ballPos, BallType.RAINBOW);
         ball.setSpeed(randomSpeedX(), randomSpeedY());
 
         player = new Player((Point) ballPos.clone(), 150, 10, drawArea);
@@ -57,11 +72,17 @@ public class GameModel {
         gameTimer = new Timer(10, e -> initializeTimer());
     }
 
+    /**
+     * Used by the {@link #gameTimer} to move the ball and player
+     */
     public void move() {
         player.move();
         ball.move();
     }
 
+    /**
+     * Used to pause the game and stop the {@link #gameTimer}
+     */
     public void pauseGame() {
         isPaused = true;
         gameTimer.stop();
@@ -71,6 +92,9 @@ public class GameModel {
         isPaused = false;
     }
 
+    /**
+     * Check if the ball was lost or hit the player, wall, or borders, and react accordingly.
+     */
     public void findImpacts() {
         if (player.impact(ball)) {
             ball.reverseY();
@@ -90,52 +114,117 @@ public class GameModel {
         }
     }
 
+    public void startGame() {
+        gameTimer.start();
+    }
+
     public void stopGame() {
         gameTimer.stop();
-    }
-
-    private void makeBall(Point2D ballPos) {
-        ball = BallFactory.makeBall(ballPos, BallType.RAINBOW);
-    }
-
-    public int getBallCount() {
-        return ballCount;
     }
 
     public boolean isBallLost() {
         return ballLost;
     }
 
-    public void ballPositionReset() {
+    /**
+     * Reset the ball's and the player's positions to the starting point
+     * and set the ball's speed to a new random speed.
+     *
+     * @see #restart()
+     */
+    public void ballAndPlayerPositionReset() {
         player.moveTo(startPoint);
         ball.moveTo(startPoint);
         ball.setSpeed(randomSpeedX(), randomSpeedY());
         ballLost = false;
     }
 
+    /**
+     * Set the score to 0 and tell {@link #wallHandler} to reset the walls.
+     */
     public void wallReset() {
         wallHandler.wallReset();
         score = 0;
     }
 
-    public boolean ballEnd() {
-        return ballCount == 0;
-    }
-
+    /**
+     * Tells {@link #wallHandler} to move to the next level.
+     */
     public void nextLevel() {
         wallHandler.nextLevel();
     }
 
-    public void setBallSpeedX(int s) {
-        ball.setSpeedX(s);
+    /**
+     * Restart the current level by resetting the
+     * wall, score, and positions of the ball and player.
+     *
+     * @see #wallReset()
+     * @see #ballAndPlayerPositionReset()
+     */
+    public void restart() {
+        wallReset();
+        ballAndPlayerPositionReset();
     }
 
-    public void setBallSpeedY(int s) {
-        ball.setSpeedY(s);
+    /**
+     * Stop the player from moving
+     */
+    public void stopPlayer() {
+        player.stop();
     }
 
+    public void moveRight() {
+        player.moveRight();
+    }
+
+    public void moveLeft() {
+        player.moveLeft();
+    }
+
+    /**
+     * Reset the ball count.
+     */
     public void resetBallCount() {
         ballCount = 3;
+    }
+
+    /**
+     * @return If the balls ran out (i.e. {@link #ballCount} == 0), then return true, otherwise return false.
+     */
+    public boolean ballEnd() {
+        return ballCount == 0;
+    }
+
+    /**
+     * Tell {@link #scoreHandler} to save the scores to storage
+     */
+    public void saveScores() {
+        scoreHandler.saveScores();
+    }
+
+    /**
+     * @return If there is a level left, return true, otherwise return false.
+     */
+    public boolean hasLevel() {
+        return wallHandler.hasLevel();
+    }
+
+    public boolean isPaused() {
+        return isPaused;
+    }
+
+    /**
+     * @return If the game is running, return true, otherwise return false.
+     */
+    public boolean isRunning() {
+        return gameTimer.isRunning();
+    }
+
+    /**
+     * @return Ask {@link #wallHandler} if the current level is done, if it is, return true, otherwise return false.
+     */
+    public boolean isDone() {
+        return wallHandler.isDone();
     }
 
     public Ball getBall() {
@@ -150,40 +239,8 @@ public class GameModel {
         return wallHandler.getBricks();
     }
 
-    public boolean isPaused() {
-        return isPaused;
-    }
-
-    public boolean isRunning() {
-        return gameTimer.isRunning();
-    }
-
-    public void startGame() {
-        gameTimer.start();
-    }
-
-    public boolean isDone() {
-        return wallHandler.isDone();
-    }
-
-    public boolean hasLevel() {
-        return wallHandler.hasLevel();
-    }
-
     public int getBrickCount() {
         return wallHandler.getBrickCount();
-    }
-
-    public void stopPlayer() {
-        player.stop();
-    }
-
-    public void moveRight() {
-        player.moveRight();
-    }
-
-    public void moveLeft() {
-        player.moveLeft();
     }
 
     public int getSpeedX() {
@@ -194,21 +251,16 @@ public class GameModel {
         return ball.getSpeedY();
     }
 
-    public void restart() {
-        wallReset();
-        ballPositionReset();
+    public int getBallCount() {
+        return ballCount;
     }
 
-    public void saveScores() {
-        scoreHandler.saveScores();
+    public void setBallSpeedX(int s) {
+        ball.setSpeedX(s);
     }
 
-    private int randomSpeedY() {
-        int speedY;
-        do {
-            speedY = -rnd.nextInt(4, 6);
-        } while (speedY == 0);
-        return speedY;
+    public void setBallSpeedY(int s) {
+        ball.setSpeedY(s);
     }
 
     private int randomSpeedX() {
@@ -217,6 +269,14 @@ public class GameModel {
             speedX = rnd.nextInt(3, 7) - 2;
         } while (speedX == 0);
         return speedX;
+    }
+
+    private int randomSpeedY() {
+        int speedY;
+        do {
+            speedY = -rnd.nextInt(4, 6);
+        } while (speedY == 0);
+        return speedY;
     }
 
     private boolean impactWall() {
@@ -263,14 +323,14 @@ public class GameModel {
                 color = Color.DARKRED;
                 resetBallCount();
             }
-            ballPositionReset();
+            ballAndPlayerPositionReset();
             gameTimer.stop();
         } else if (isDone()) {
             if (hasLevel()) {
                 message = "Go to Next Level";
                 color = Color.MEDIUMAQUAMARINE;
                 gameTimer.stop();
-                ballPositionReset();
+                ballAndPlayerPositionReset();
                 nextLevel();
                 wallReset();
             } else {
