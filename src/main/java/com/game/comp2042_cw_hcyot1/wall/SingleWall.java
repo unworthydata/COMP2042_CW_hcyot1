@@ -6,6 +6,9 @@ import com.game.comp2042_cw_hcyot1.brick.BrickType;
 
 import java.awt.*;
 
+/**
+ * An implementation of the abstract class {@link Wall} that produces a wall of bricks of a single type.
+ */
 public class SingleWall extends Wall {
     private BrickType type;
 

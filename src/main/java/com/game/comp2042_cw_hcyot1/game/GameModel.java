@@ -152,6 +152,7 @@ public class GameModel {
      */
     public void nextLevel() {
         wallHandler.nextLevel();
+        score = 0;
     }
 
     /**

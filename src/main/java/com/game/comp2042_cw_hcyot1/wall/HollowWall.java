@@ -6,6 +6,11 @@ import com.game.comp2042_cw_hcyot1.brick.BrickType;
 
 import java.awt.*;
 
+/**
+ * An implementation of abstract class {@link Wall}.
+ * Similar to {@link CheckerboardWall}, but instead of having 2 different
+ * brick types interchanged, there are gaps between the bricks.
+ */
 public class HollowWall extends Wall {
     private BrickType type;
 

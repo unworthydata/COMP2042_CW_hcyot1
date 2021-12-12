@@ -6,6 +6,11 @@ import com.game.comp2042_cw_hcyot1.brick.BrickType;
 
 import java.awt.*;
 
+/**
+ * An implementation of class {@link Wall} where {@link Brick} of 2 types are used together to create a checkerboard effect.
+ *
+ * @see Wall
+ */
 public class CheckerboardWall extends Wall {
     private BrickType typeA;
     private BrickType typeB;
