@@ -23,8 +23,8 @@ import java.awt.*;
 
 
 public class Player {
-    public static final Color BORDER_COLOR = Color.GREEN.darker().darker();
-    public static final Color INNER_COLOR = Color.GREEN;
+    private final Color BORDER_COLOR = Color.GREEN.darker().darker();
+    private final Color INNER_COLOR = Color.GREEN;
 
     private static final int DEF_MOVE_AMOUNT = 5;
 
@@ -73,6 +73,14 @@ public class Player {
     public void moveTo(Point p) {
         ballPoint.setLocation(p);
         playerFace.setLocation(ballPoint.x - (int) playerFace.getWidth() / 2, ballPoint.y);
+    }
+
+    public Color getBorderColor() {
+        return BORDER_COLOR;
+    }
+
+    public Color getInnerColor() {
+        return INNER_COLOR;
     }
 
     private Rectangle makeRectangle(int width, int height) {

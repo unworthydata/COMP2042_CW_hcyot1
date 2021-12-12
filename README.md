@@ -95,5 +95,6 @@ Recreate HomeMenu and PauseMenu in JavaFX. Then recreate the game viewing in Jav
 * Added new wall type (Hollow walls)
 * Added new Brick type (Moss Brick)
 * Made it so levels are made using lists, which is much more flexible when adding or removing levels
+* Added Javadocs to all classes
 
 Use interfaces to reduce coupling and increase extensibility. In the future, we might want to create a new menu or a game with a new look, and using interfaces means we just make a new class with those required features.  
