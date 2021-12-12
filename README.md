@@ -2,7 +2,8 @@
 ### Omar Ismail (Student ID: 20311657)  
 ### COMP2042 Software Maintenance Fall 2021
 
-GitHub link: https://github.com/unworthydata/COMP2042_CW_hcyot1
+* GitHub link: https://github.com/unworthydata/COMP2042_CW_hcyot1
+* Javadoc in javadoc/index.html
 
 ## To run this game:
 Clone the repo, then navigate to it in your CLI
@@ -18,8 +19,6 @@ For UNIX-based systems use: ```./gradlew run```
 * Java SDK version 17
 * JavaFX version 17
 * Gradle version 7.3
-
-* Javadoc in javadoc/index.html
 
 ## Changelog
 
