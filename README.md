@@ -62,7 +62,7 @@ For UNIX-based systems use: ```./gradlew run```
   * SingleWall --> _(Makes a single-brick-type wall)_
   * CheckerboardWall --> _(Makes a checkerboard-style wall)_
   * WallHandler --> _(Records the state of the multiple walls that make up the game)_
-  * GameLogic --> _(Contains the ball-related aspects)_
+  * GameModel --> _(Contains the ball-related aspects)_
 
 Pushed down much functionality to the Wall class in a psuedo-chain-of-command pattern.
 Any function call regarding low-level details of a wall go through this chain: `GameModel -> WallHandler -> Wall`
