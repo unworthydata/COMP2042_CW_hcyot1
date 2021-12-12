@@ -18,33 +18,4 @@ class WallHandlerTest {
     void breakBrick() {
         assertEquals(wallHandler.getBrickCount() - 1, wallHandler.breakBrick());
     }
-
-    @Test
-    void getBrickCount() {
-        assertEquals(wallHandler.getBricks().length, wallHandler.getBrickCount());
-    }
-
-    @Test
-    void wallReset() {
-    }
-
-    @Test
-    void isDone() {
-    }
-
-    @Test
-    void nextLevel() {
-    }
-
-    @Test
-    void hasLevel() {
-    }
-
-    @Test
-    void impactWall() {
-    }
-
-    @Test
-    void getBricks() {
-    }
 }
