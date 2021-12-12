@@ -1,4 +1,6 @@
 # Brick Breaker Game
+### Omar Ismail (Student ID: 20311657)  
+### COMP2042 Software Maintenance Fall 2021
 
 ## To run this game:
 Clone the repo, then navigate to it in your CLI
@@ -15,7 +17,7 @@ For UNIX-based systems use: ```./gradlew run```
 * JavaFX version 17
 * Gradle version 7.3
 
-## Changes
+## Changelog
 
 ---
 #### 03/12/2021:
@@ -80,7 +82,7 @@ Recreate HomeMenu and PauseMenu in JavaFX. Then recreate the game viewing in Jav
 #### 11/12/2021:
 * Removed old classes and moved to the new MVC and JavaFX classes
 * Made windows not resizable, it messed with the look of the game
-* Restructed classes into logical packages
+* Restructured classes into logical packages
   * Moved DebugConsole and PauseMenu related files into the same package as game, as they only make sense in a game context.
 * Filled in info screen
 * Styled main menu
@@ -96,5 +98,4 @@ Recreate HomeMenu and PauseMenu in JavaFX. Then recreate the game viewing in Jav
 * Added new Brick type (Moss Brick)
 * Made it so levels are made using lists, which is much more flexible when adding or removing levels
 * Added Javadocs to all classes
-
-Use interfaces to reduce coupling and increase extensibility. In the future, we might want to create a new menu or a game with a new look, and using interfaces means we just make a new class with those required features.  
+* Added tests for BrickFactory and BallFactory classes
