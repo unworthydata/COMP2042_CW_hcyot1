@@ -5,27 +5,34 @@ import java.awt.geom.Point2D;
 import java.awt.geom.RectangularShape;
 
 /**
- * Created by filippo on 04/09/16.
+ * Abstract class representing the most important aspects of a Ball,
+ * leaving only the implementation of making a ball to the class that extends it.
  *
- * Fixed by Omar starting on 03/12/2021. Filippo's code is bad.
+ * @author Omar Ismail
+ * @see RubberBall
  */
 abstract public class Ball {
+    protected Shape ballFace;
 
-    private Shape ballFace;
+    protected Point2D center;
+    protected Point2D up = new Point2D.Double();
+    protected Point2D down = new Point2D.Double();
+    protected Point2D left = new Point2D.Double();
+    protected Point2D right = new Point2D.Double();
 
-    private Point2D center;
+    protected Color borderColor;
+    protected Color innerColor;
 
-    private Point2D up = new Point2D.Double();
-    private Point2D down = new Point2D.Double();
-    private Point2D left = new Point2D.Double();
-    private Point2D right = new Point2D.Double();
+    protected int speedX = 0;
+    protected int speedY = 0;
 
-    private Color borderColor;
-    private Color innerColor;
-
-    private int speedX = 0;
-    private int speedY = 0;
-
+    /**
+     *
+     * @param center Center of the new ball
+     * @param radius Radius of the new ball
+     * @param innerColor Inner color that will fill the new ball
+     * @param borderColor Border color that will be on the outside of the ball
+     */
     public Ball(Point2D center, int radius, Color innerColor, Color borderColor) {
         this.center = center;
         this.innerColor = innerColor;

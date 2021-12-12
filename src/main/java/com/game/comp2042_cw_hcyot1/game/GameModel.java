@@ -1,8 +1,7 @@
 package com.game.comp2042_cw_hcyot1.game;
 
 import com.game.comp2042_cw_hcyot1.Player;
-import com.game.comp2042_cw_hcyot1.ball.Ball;
-import com.game.comp2042_cw_hcyot1.ball.RubberBall;
+import com.game.comp2042_cw_hcyot1.ball.*;
 import com.game.comp2042_cw_hcyot1.brick.Brick;
 import com.game.comp2042_cw_hcyot1.brick.Crack;
 import com.game.comp2042_cw_hcyot1.wall.WallHandler;
@@ -75,14 +74,12 @@ public class GameModel {
     public void findImpacts() {
         if (player.impact(ball)) {
             ball.reverseY();
-            randomizeBallColors();
         } else if (impactWall()) {
             /*for efficiency reverse is done into method impactWall
              * because for every brick program checks for horizontal and vertical impacts
              */
             wallHandler.breakBrick();
             score++;
-            randomizeBallColors();
         } else if (impactBorder()) {
             ball.reverseX();
         } else if (ball.getPosition().getY() < area.getY()) {
@@ -98,7 +95,7 @@ public class GameModel {
     }
 
     private void makeBall(Point2D ballPos) {
-        ball = new RubberBall(ballPos);
+        ball = BallFactory.makeBall(ballPos, BallType.RAINBOW);
     }
 
     public int getBallCount() {
@@ -288,10 +285,5 @@ public class GameModel {
         }
         controller.updateStatus(message, color);
         controller.repaintView();
-    }
-
-    private void randomizeBallColors() {
-        ball.setInnerColor(new java.awt.Color(rnd.nextInt(256), rnd.nextInt(256),
-                rnd.nextInt(256), rnd.nextInt(256)));
     }
 }
