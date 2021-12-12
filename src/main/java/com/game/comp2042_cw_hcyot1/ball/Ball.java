@@ -43,6 +43,9 @@ abstract public class Ball {
         ballFace = makeBall(center, radius);
     }
 
+    /**
+     * Moves the ball by updating its center point and shape frame locations
+     */
     public void move() {
         RectangularShape tmp = (RectangularShape) ballFace;
         center.setLocation((center.getX() + speedX), (center.getY() + speedY));
@@ -55,6 +58,11 @@ abstract public class Ball {
         ballFace = tmp;
     }
 
+    /**
+     * Move the ball to a specific Point
+     *
+     * @param p The specific Point the ball should be moved to
+     */
     public void moveTo(Point p) {
         center.setLocation(p);
 
@@ -66,10 +74,16 @@ abstract public class Ball {
         ballFace = tmp;
     }
 
+    /**
+     * Reverse the speed on the x-axis
+     */
     public void reverseX() {
         speedX *= -1;
     }
 
+    /**
+     * Reverse the speed on the y-axis
+     */
     public void reverseY() {
         speedY *= -1;
     }
@@ -106,29 +120,25 @@ abstract public class Ball {
         return right;
     }
 
-    public void setSpeed(int x, int y) {
-        setSpeedX(x);
-        setSpeedY(y);
-    }
-
     public int getSpeedX() {
         return speedX;
-    }
-
-    public void setSpeedX(int s) {
-        speedX = s;
     }
 
     public int getSpeedY() {
         return speedY;
     }
 
-    public void setSpeedY(int s) {
-        speedY = s;
+    public void setSpeed(int speedX, int speedY) {
+        setSpeedX(speedX);
+        setSpeedY(speedY);
     }
 
-    public void setInnerColor(Color color) {
-        innerColor = color;
+    public void setSpeedX(int speedX) {
+        this.speedX = speedX;
+    }
+
+    public void setSpeedY(int speedY) {
+        this.speedY = speedY;
     }
 
     protected abstract Shape makeBall(Point2D center, int radius);

@@ -5,6 +5,10 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 import java.util.Random;
 
+/**
+ * A class that extends Ball. This ball changes to a random color each time
+ * it bounces off a brick or the player.
+ */
 public class RainbowBall extends Ball {
     private static final int DEF_RADIUS = 15;
     private static final Color DEF_INNER_COLOR = new Color(255, 219, 88);
@@ -16,6 +20,9 @@ public class RainbowBall extends Ball {
         super(center, DEF_RADIUS, DEF_INNER_COLOR, DEF_BORDER_COLOR);
     }
 
+    /**
+     * Reverses speed on the y-axis and changes to a random inner color.
+     */
     @Override
     public void reverseY() {
         speedY *= -1;

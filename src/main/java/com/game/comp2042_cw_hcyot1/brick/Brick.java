@@ -3,14 +3,8 @@ package com.game.comp2042_cw_hcyot1.brick;
 import com.game.comp2042_cw_hcyot1.ball.Ball;
 
 import java.awt.*;
-import java.awt.Point;
-import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
-import java.util.Random;
 
-/**
- * Created by filippo on 04/09/16.
- */
 abstract public class Brick {
     public static final int UP_IMPACT = 100;
     public static final int DOWN_IMPACT = 200;
