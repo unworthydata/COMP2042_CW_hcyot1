@@ -22,7 +22,6 @@ For UNIX-based systems use: ```./gradlew run```
 
 ## Changelog
 
----
 #### 03/12/2021:
 * Extracted related classes into separate packages.
   * Extracted "Ball" and "RubberBall" into package "ball"
