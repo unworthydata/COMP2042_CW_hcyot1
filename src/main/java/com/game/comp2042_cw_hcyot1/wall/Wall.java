@@ -43,8 +43,10 @@ public abstract class Wall {
      * Reset the wall by repairing all its bricks and resetting its brick count.
      */
     public void wallReset() {
-        for (Brick b : bricks)
-            b.repair();
+        for (Brick brick : bricks)
+            if (brick != null) {
+                brick.repair();
+            }
         brickCount = bricks.length;
     }
 
